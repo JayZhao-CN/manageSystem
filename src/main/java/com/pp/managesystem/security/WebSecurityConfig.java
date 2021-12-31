@@ -17,6 +17,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true) // 开启方法级安全验证
@@ -49,8 +50,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 // 拦截验证token
                 .addFilterBefore(new JwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-//                .addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class)
-                .addFilterAt(new MyFilterSecurityInterceptor(), FilterSecurityInterceptor.class)
+                .addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class)
+//                .addFilterAt(new MyFilterSecurityInterceptor(), FilterSecurityInterceptor.class)
                 // 设置无session
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
