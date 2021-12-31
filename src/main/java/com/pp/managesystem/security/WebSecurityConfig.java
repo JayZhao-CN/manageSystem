@@ -1,5 +1,6 @@
 package com.pp.managesystem.security;
 
+import com.pp.managesystem.security.filter.JwtAuthenticationFilter;
 import com.pp.managesystem.security.handle.OnAuthFailHandler;
 import com.pp.managesystem.security.handle.OnAuthSuccessHandler;
 import com.pp.managesystem.security.handle.OnLogoutSuccessHandler;
@@ -47,8 +48,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 // 拦截验证token
-//                .addFilterBefore(new JwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class)
+                .addFilterBefore(new JwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+//                .addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class)
+                .addFilterAt(new MyFilterSecurityInterceptor(), FilterSecurityInterceptor.class)
                 // 设置无session
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()

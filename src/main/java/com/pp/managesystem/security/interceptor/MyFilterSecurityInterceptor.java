@@ -15,7 +15,7 @@ import java.io.IOException;
 public class MyFilterSecurityInterceptor extends AbstractSecurityInterceptor implements Filter {
 
     @Autowired
-    private FilterInvocationSecurityMetadataSource securityMetadataSource;
+    private MySecurityMetadataSource securityMetadataSource;
     @Autowired
     public void setMyAccessDecisionManager(MyAccessDecisionManager myAccessDecisionManager) {
         super.setAccessDecisionManager(myAccessDecisionManager);
