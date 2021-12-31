@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pp.managesystem.dao.SysProductMapper">
+  <resultMap id="BaseResultMap" type="com.pp.managesystem.entity.SysProduct">
+    <id column="pr_id" jdbcType="INTEGER" property="prId" />
+    <result column="pr_code" jdbcType="VARCHAR" property="prCode" />
+    <result column="pr_company" jdbcType="VARCHAR" property="prCompany" />
+    <result column="pr_batch" jdbcType="VARCHAR" property="prBatch" />
+    <result column="pr_type" jdbcType="VARCHAR" property="prType" />
+    <result column="pr_color" jdbcType="VARCHAR" property="prColor" />
+    <result column="pr_size" jdbcType="VARCHAR" property="prSize" />
+    <result column="pr_count" jdbcType="INTEGER" property="prCount" />
+    <result column="pr_remark" jdbcType="VARCHAR" property="prRemark" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    pr_id, pr_code, pr_company, pr_batch, pr_type, pr_color, pr_size, pr_count, pr_remark
+  </sql>
+  <select id="selectByExample" parameterType="com.pp.managesystem.entity.SysProductExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_product
+    where pr_id = #{prId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_product
+    where pr_id = #{prId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pp.managesystem.entity.SysProductExample">
+    delete from sys_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pp.managesystem.entity.SysProduct">
+    insert into sys_product (pr_id, pr_code, pr_company, 
+      pr_batch, pr_type, pr_color, 
+      pr_size, pr_count, pr_remark
+      )
+    values (#{prId,jdbcType=INTEGER}, #{prCode,jdbcType=VARCHAR}, #{prCompany,jdbcType=VARCHAR}, 
+      #{prBatch,jdbcType=VARCHAR}, #{prType,jdbcType=VARCHAR}, #{prColor,jdbcType=VARCHAR}, 
+      #{prSize,jdbcType=VARCHAR}, #{prCount,jdbcType=INTEGER}, #{prRemark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pp.managesystem.entity.SysProduct">
+    insert into sys_product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="prId != null">
+        pr_id,
+      </if>
+      <if test="prCode != null">
+        pr_code,
+      </if>
+      <if test="prCompany != null">
+        pr_company,
+      </if>
+      <if test="prBatch != null">
+        pr_batch,
+      </if>
+      <if test="prType != null">
+        pr_type,
+      </if>
+      <if test="prColor != null">
+        pr_color,
+      </if>
+      <if test="prSize != null">
+        pr_size,
+      </if>
+      <if test="prCount != null">
+        pr_count,
+      </if>
+      <if test="prRemark != null">
+        pr_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="prId != null">
+        #{prId,jdbcType=INTEGER},
+      </if>
+      <if test="prCode != null">
+        #{prCode,jdbcType=VARCHAR},
+      </if>
+      <if test="prCompany != null">
+        #{prCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="prBatch != null">
+        #{prBatch,jdbcType=VARCHAR},
+      </if>
+      <if test="prType != null">
+        #{prType,jdbcType=VARCHAR},
+      </if>
+      <if test="prColor != null">
+        #{prColor,jdbcType=VARCHAR},
+      </if>
+      <if test="prSize != null">
+        #{prSize,jdbcType=VARCHAR},
+      </if>
+      <if test="prCount != null">
+        #{prCount,jdbcType=INTEGER},
+      </if>
+      <if test="prRemark != null">
+        #{prRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pp.managesystem.entity.SysProductExample" resultType="java.lang.Long">
+    select count(*) from sys_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sys_product
+    <set>
+      <if test="record.prId != null">
+        pr_id = #{record.prId,jdbcType=INTEGER},
+      </if>
+      <if test="record.prCode != null">
+        pr_code = #{record.prCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prCompany != null">
+        pr_company = #{record.prCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prBatch != null">
+        pr_batch = #{record.prBatch,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prType != null">
+        pr_type = #{record.prType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prColor != null">
+        pr_color = #{record.prColor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prSize != null">
+        pr_size = #{record.prSize,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prCount != null">
+        pr_count = #{record.prCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.prRemark != null">
+        pr_remark = #{record.prRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sys_product
+    set pr_id = #{record.prId,jdbcType=INTEGER},
+      pr_code = #{record.prCode,jdbcType=VARCHAR},
+      pr_company = #{record.prCompany,jdbcType=VARCHAR},
+      pr_batch = #{record.prBatch,jdbcType=VARCHAR},
+      pr_type = #{record.prType,jdbcType=VARCHAR},
+      pr_color = #{record.prColor,jdbcType=VARCHAR},
+      pr_size = #{record.prSize,jdbcType=VARCHAR},
+      pr_count = #{record.prCount,jdbcType=INTEGER},
+      pr_remark = #{record.prRemark,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pp.managesystem.entity.SysProduct">
+    update sys_product
+    <set>
+      <if test="prCode != null">
+        pr_code = #{prCode,jdbcType=VARCHAR},
+      </if>
+      <if test="prCompany != null">
+        pr_company = #{prCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="prBatch != null">
+        pr_batch = #{prBatch,jdbcType=VARCHAR},
+      </if>
+      <if test="prType != null">
+        pr_type = #{prType,jdbcType=VARCHAR},
+      </if>
+      <if test="prColor != null">
+        pr_color = #{prColor,jdbcType=VARCHAR},
+      </if>
+      <if test="prSize != null">
+        pr_size = #{prSize,jdbcType=VARCHAR},
+      </if>
+      <if test="prCount != null">
+        pr_count = #{prCount,jdbcType=INTEGER},
+      </if>
+      <if test="prRemark != null">
+        pr_remark = #{prRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pr_id = #{prId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pp.managesystem.entity.SysProduct">
+    update sys_product
+    set pr_code = #{prCode,jdbcType=VARCHAR},
+      pr_company = #{prCompany,jdbcType=VARCHAR},
+      pr_batch = #{prBatch,jdbcType=VARCHAR},
+      pr_type = #{prType,jdbcType=VARCHAR},
+      pr_color = #{prColor,jdbcType=VARCHAR},
+      pr_size = #{prSize,jdbcType=VARCHAR},
+      pr_count = #{prCount,jdbcType=INTEGER},
+      pr_remark = #{prRemark,jdbcType=VARCHAR}
+    where pr_id = #{prId,jdbcType=INTEGER}
+  </update>
+</mapper>

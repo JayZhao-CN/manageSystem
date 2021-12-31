@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pp.managesystem.dao.SysUrlAuthMapper">
+  <resultMap id="BaseResultMap" type="com.pp.managesystem.entity.SysUrlAuth">
+    <id column="ua_id" jdbcType="INTEGER" property="uaId" />
+    <result column="ua_url" jdbcType="VARCHAR" property="uaUrl" />
+    <result column="ua_auth" jdbcType="VARCHAR" property="uaAuth" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ua_id, ua_url, ua_auth
+  </sql>
+  <select id="selectByExample" parameterType="com.pp.managesystem.entity.SysUrlAuthExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_url_auth
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_url_auth
+    where ua_id = #{uaId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByUrl" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_url_auth
+    where ua_id = #{uaUrl,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_url_auth
+    where ua_id = #{uaId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pp.managesystem.entity.SysUrlAuthExample">
+    delete from sys_url_auth
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pp.managesystem.entity.SysUrlAuth">
+    insert into sys_url_auth (ua_id, ua_url, ua_auth
+      )
+    values (#{uaId,jdbcType=INTEGER}, #{uaUrl,jdbcType=VARCHAR}, #{uaAuth,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pp.managesystem.entity.SysUrlAuth">
+    insert into sys_url_auth
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uaId != null">
+        ua_id,
+      </if>
+      <if test="uaUrl != null">
+        ua_url,
+      </if>
+      <if test="uaAuth != null">
+        ua_auth,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uaId != null">
+        #{uaId,jdbcType=INTEGER},
+      </if>
+      <if test="uaUrl != null">
+        #{uaUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="uaAuth != null">
+        #{uaAuth,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pp.managesystem.entity.SysUrlAuthExample" resultType="java.lang.Long">
+    select count(*) from sys_url_auth
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sys_url_auth
+    <set>
+      <if test="record.uaId != null">
+        ua_id = #{record.uaId,jdbcType=INTEGER},
+      </if>
+      <if test="record.uaUrl != null">
+        ua_url = #{record.uaUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uaAuth != null">
+        ua_auth = #{record.uaAuth,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sys_url_auth
+    set ua_id = #{record.uaId,jdbcType=INTEGER},
+      ua_url = #{record.uaUrl,jdbcType=VARCHAR},
+      ua_auth = #{record.uaAuth,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pp.managesystem.entity.SysUrlAuth">
+    update sys_url_auth
+    <set>
+      <if test="uaUrl != null">
+        ua_url = #{uaUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="uaAuth != null">
+        ua_auth = #{uaAuth,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ua_id = #{uaId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pp.managesystem.entity.SysUrlAuth">
+    update sys_url_auth
+    set ua_url = #{uaUrl,jdbcType=VARCHAR},
+      ua_auth = #{uaAuth,jdbcType=VARCHAR}
+    where ua_id = #{uaId,jdbcType=INTEGER}
+  </update>
+</mapper>

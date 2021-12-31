@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pp.managesystem.dao.SysUserMapper">
+  <resultMap id="BaseResultMap" type="com.pp.managesystem.entity.SysUser">
+    <id column="u_id" jdbcType="INTEGER" property="uId" />
+    <result column="u_username" jdbcType="VARCHAR" property="uUsername" />
+    <result column="u_code" jdbcType="VARCHAR" property="uCode" />
+    <result column="u_password" jdbcType="VARCHAR" property="uPassword" />
+    <result column="u_phone" jdbcType="VARCHAR" property="uPhone" />
+    <result column="u_company" jdbcType="VARCHAR" property="uCompany" />
+    <result column="u_position" jdbcType="VARCHAR" property="uPosition" />
+    <result column="u_time_start" jdbcType="BIGINT" property="uTimeStart" />
+    <result column="u_time_end" jdbcType="BIGINT" property="uTimeEnd" />
+  </resultMap>
+
+  <resultMap id="DetailResultMap" type="com.pp.managesystem.entity.SysUserDetail">
+    <id column="u_id" jdbcType="INTEGER" property="uId" />
+    <result column="u_username" jdbcType="VARCHAR" property="uUsername" />
+    <result column="u_code" jdbcType="VARCHAR" property="uCode" />
+    <result column="u_password" jdbcType="VARCHAR" property="uPassword" />
+    <result column="u_phone" jdbcType="VARCHAR" property="uPhone" />
+    <result column="u_company" jdbcType="VARCHAR" property="uCompany" />
+    <result column="u_position" jdbcType="VARCHAR" property="uPosition" />
+    <result column="u_time_start" jdbcType="BIGINT" property="uTimeStart" />
+    <result column="u_time_end" jdbcType="BIGINT" property="uTimeEnd" />
+
+    <result column="u_company_detail" jdbcType="VARCHAR" property="uCompanyDetail"/>
+    <result column="u_position_detail" jdbcType="VARCHAR" property="uPositionDetail"/>
+  </resultMap>
+
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    u_id, u_username, u_code, u_password, u_phone, u_company, u_position, u_time_start, 
+    u_time_end
+  </sql>
+  <select id="selectByExample" parameterType="com.pp.managesystem.entity.SysUserExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectAll" parameterType="com.pp.managesystem.entity.SysUserExample" resultMap="DetailResultMap">
+    select
+    <include refid="Base_Column_List" />
+    ,co_name as u_company_detail
+    ,p_name as u_position_detail
+    from sys_user
+    left join sys_company
+    on sys_user.u_company=sys_company.co_code
+left join sys_position
+on sys_user.u_position=sys_position.p_code
+  </select>
+
+  <select id="selectByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_user
+    where u_username = #{uUsername,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where u_id = #{uId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_user
+    where u_id = #{uId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pp.managesystem.entity.SysUserExample">
+    delete from sys_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pp.managesystem.entity.SysUser">
+    insert into sys_user (u_id, u_username, u_code, 
+      u_password, u_phone, u_company, 
+      u_position, u_time_start, u_time_end
+      )
+    values (#{uId,jdbcType=INTEGER}, #{uUsername,jdbcType=VARCHAR}, #{uCode,jdbcType=VARCHAR}, 
+      #{uPassword,jdbcType=VARCHAR}, #{uPhone,jdbcType=VARCHAR}, #{uCompany,jdbcType=VARCHAR}, 
+      #{uPosition,jdbcType=VARCHAR}, #{uTimeStart,jdbcType=BIGINT}, #{uTimeEnd,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pp.managesystem.entity.SysUser">
+    insert into sys_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uId != null">
+        u_id,
+      </if>
+      <if test="uUsername != null">
+        u_username,
+      </if>
+      <if test="uCode != null">
+        u_code,
+      </if>
+      <if test="uPassword != null">
+        u_password,
+      </if>
+      <if test="uPhone != null">
+        u_phone,
+      </if>
+      <if test="uCompany != null">
+        u_company,
+      </if>
+      <if test="uPosition != null">
+        u_position,
+      </if>
+      <if test="uTimeStart != null">
+        u_time_start,
+      </if>
+      <if test="uTimeEnd != null">
+        u_time_end,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uId != null">
+        #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="uUsername != null">
+        #{uUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="uCode != null">
+        #{uCode,jdbcType=VARCHAR},
+      </if>
+      <if test="uPassword != null">
+        #{uPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="uPhone != null">
+        #{uPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="uCompany != null">
+        #{uCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="uPosition != null">
+        #{uPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="uTimeStart != null">
+        #{uTimeStart,jdbcType=BIGINT},
+      </if>
+      <if test="uTimeEnd != null">
+        #{uTimeEnd,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pp.managesystem.entity.SysUserExample" resultType="java.lang.Long">
+    select count(*) from sys_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sys_user
+    <set>
+      <if test="record.uId != null">
+        u_id = #{record.uId,jdbcType=INTEGER},
+      </if>
+      <if test="record.uUsername != null">
+        u_username = #{record.uUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uCode != null">
+        u_code = #{record.uCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uPassword != null">
+        u_password = #{record.uPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uPhone != null">
+        u_phone = #{record.uPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uCompany != null">
+        u_company = #{record.uCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uPosition != null">
+        u_position = #{record.uPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uTimeStart != null">
+        u_time_start = #{record.uTimeStart,jdbcType=BIGINT},
+      </if>
+      <if test="record.uTimeEnd != null">
+        u_time_end = #{record.uTimeEnd,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sys_user
+    set u_id = #{record.uId,jdbcType=INTEGER},
+      u_username = #{record.uUsername,jdbcType=VARCHAR},
+      u_code = #{record.uCode,jdbcType=VARCHAR},
+      u_password = #{record.uPassword,jdbcType=VARCHAR},
+      u_phone = #{record.uPhone,jdbcType=VARCHAR},
+      u_company = #{record.uCompany,jdbcType=VARCHAR},
+      u_position = #{record.uPosition,jdbcType=VARCHAR},
+      u_time_start = #{record.uTimeStart,jdbcType=BIGINT},
+      u_time_end = #{record.uTimeEnd,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pp.managesystem.entity.SysUser">
+    update sys_user
+    <set>
+      <if test="uUsername != null">
+        u_username = #{uUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="uCode != null">
+        u_code = #{uCode,jdbcType=VARCHAR},
+      </if>
+      <if test="uPassword != null">
+        u_password = #{uPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="uPhone != null">
+        u_phone = #{uPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="uCompany != null">
+        u_company = #{uCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="uPosition != null">
+        u_position = #{uPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="uTimeStart != null">
+        u_time_start = #{uTimeStart,jdbcType=BIGINT},
+      </if>
+      <if test="uTimeEnd != null">
+        u_time_end = #{uTimeEnd,jdbcType=BIGINT},
+      </if>
+    </set>
+    where u_id = #{uId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pp.managesystem.entity.SysUser">
+    update sys_user
+    set u_username = #{uUsername,jdbcType=VARCHAR},
+      u_code = #{uCode,jdbcType=VARCHAR},
+      u_password = #{uPassword,jdbcType=VARCHAR},
+      u_phone = #{uPhone,jdbcType=VARCHAR},
+      u_company = #{uCompany,jdbcType=VARCHAR},
+      u_position = #{uPosition,jdbcType=VARCHAR},
+      u_time_start = #{uTimeStart,jdbcType=BIGINT},
+      u_time_end = #{uTimeEnd,jdbcType=BIGINT}
+    where u_id = #{uId,jdbcType=INTEGER}
+  </update>
+</mapper>
