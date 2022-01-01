@@ -54,7 +54,7 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
             String needPerm = c.getAttribute();
             for(GrantedAuthority ga : userAuthorities) {
                 // 匹配用户拥有的ga 和 系统中的needPerm
-                if(("ROLE_"+needPerm).trim().equals(ga.getAuthority())) {
+                if(("ROLE_" + needPerm).trim().equals(ga.getAuthority())) {
                     return;
                 }
             }
