@@ -21,6 +21,24 @@ public class SysUser implements Serializable {
 
     private Long uTimeEnd;
 
+    private Integer uToken;
+
+    public SysUser() {
+    }
+
+    public SysUser(String uUsername, Integer uToken) {
+        this.uUsername = uUsername;
+        this.uToken = uToken;
+    }
+
+    public Integer getuToken() {
+        return uToken;
+    }
+
+    public void setuToken(Integer uToken) {
+        this.uToken = uToken;
+    }
+
     private static final long serialVersionUID = 1L;
 
     public Integer getuId() {
@@ -97,21 +115,17 @@ public class SysUser implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", uId=").append(uId);
-        sb.append(", uUsername=").append(uUsername);
-        sb.append(", uCode=").append(uCode);
-        sb.append(", uPassword=").append(uPassword);
-        sb.append(", uPhone=").append(uPhone);
-        sb.append(", uCompany=").append(uCompany);
-        sb.append(", uPosition=").append(uPosition);
-        sb.append(", uTimeStart=").append(uTimeStart);
-        sb.append(", uTimeEnd=").append(uTimeEnd);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
+        return "SysUser{" +
+                "uId=" + uId +
+                ", uUsername='" + uUsername + '\'' +
+                ", uCode='" + uCode + '\'' +
+                ", uPassword='" + uPassword + '\'' +
+                ", uPhone='" + uPhone + '\'' +
+                ", uCompany='" + uCompany + '\'' +
+                ", uPosition='" + uPosition + '\'' +
+                ", uTimeStart=" + uTimeStart +
+                ", uTimeEnd=" + uTimeEnd +
+                ", uToken=" + uToken +
+                '}';
     }
 }

@@ -44,21 +44,22 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
                 }
                 userAuthorities = user.getAuthorities();
             }
-        }
 
 
 
-        Iterator<ConfigAttribute> iterator = configAttributes.iterator();
-        while (iterator.hasNext()){
-            ConfigAttribute c = iterator.next();
-            String needPerm = c.getAttribute();
-            for(GrantedAuthority ga : userAuthorities) {
-                // 匹配用户拥有的ga 和 系统中的needPerm
-                if(("ROLE_" + needPerm).trim().equals(ga.getAuthority())) {
-                    return;
+            Iterator<ConfigAttribute> iterator = configAttributes.iterator();
+            while (iterator.hasNext()){
+                ConfigAttribute c = iterator.next();
+                String needPerm = c.getAttribute();
+                for(GrantedAuthority ga : userAuthorities) {
+                    // 匹配用户拥有的ga 和 系统中的needPerm
+                    if(("ROLE_" + needPerm).trim().equals(ga.getAuthority())) {
+                        return;
+                    }
                 }
             }
         }
+
         throw new AccessDeniedException("抱歉，您没有访问权限");
     }
     @Override

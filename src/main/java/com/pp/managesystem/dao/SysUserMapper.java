@@ -3,9 +3,10 @@ package com.pp.managesystem.dao;
 import com.pp.managesystem.entity.SysUser;
 import com.pp.managesystem.entity.SysUserDetail;
 import com.pp.managesystem.entity.SysUserExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 @Component
 public interface SysUserMapper {
     long countByExample(SysUserExample example);
@@ -33,4 +34,6 @@ public interface SysUserMapper {
     int updateByPrimaryKeySelective(SysUser record);
 
     int updateByPrimaryKey(SysUser record);
+
+    int updateToken(SysUser sysUser);
 }

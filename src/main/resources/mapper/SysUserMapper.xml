@@ -13,6 +13,19 @@
     <result column="u_time_end" jdbcType="BIGINT" property="uTimeEnd" />
   </resultMap>
 
+  <resultMap id="TokenResultMap" type="com.pp.managesystem.entity.SysUser">
+    <id column="u_id" jdbcType="INTEGER" property="uId" />
+    <result column="u_username" jdbcType="VARCHAR" property="uUsername" />
+    <result column="u_code" jdbcType="VARCHAR" property="uCode" />
+    <result column="u_password" jdbcType="VARCHAR" property="uPassword" />
+    <result column="u_phone" jdbcType="VARCHAR" property="uPhone" />
+    <result column="u_company" jdbcType="VARCHAR" property="uCompany" />
+    <result column="u_position" jdbcType="VARCHAR" property="uPosition" />
+    <result column="u_time_start" jdbcType="BIGINT" property="uTimeStart" />
+    <result column="u_time_end" jdbcType="BIGINT" property="uTimeEnd" />
+    <result column="u_token" jdbcType="INTEGER" property="uToken" />
+  </resultMap>
+
   <resultMap id="DetailResultMap" type="com.pp.managesystem.entity.SysUserDetail">
     <id column="u_id" jdbcType="INTEGER" property="uId" />
     <result column="u_username" jdbcType="VARCHAR" property="uUsername" />
@@ -307,5 +320,11 @@ on sys_user.u_position=sys_position.p_code
       u_time_start = #{uTimeStart,jdbcType=BIGINT},
       u_time_end = #{uTimeEnd,jdbcType=BIGINT}
     where u_id = #{uId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateToken" parameterType="com.pp.managesystem.entity.SysUser">
+    update sys_user
+    set u_token = #{uToken,jdbcType=INTEGER}
+    where u_username = #{uUsername,jdbcType=VARCHAR}
   </update>
 </mapper>

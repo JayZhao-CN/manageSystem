@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pp.managesystem.entity.SecurityUserDetailsImp;
 import com.pp.managesystem.util.JWTUtils;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.servlet.*;
@@ -15,6 +16,8 @@ import java.util.Objects;
  * 验证token是否正确，并从token中还原"session"信息
  */
 public class JwtAuthenticationFilter extends GenericFilter {
+    private AuthenticationException AuthenticationException;
+
     @Override
     public void doFilter(ServletRequest servletRequest,
                          ServletResponse servletResponse,
@@ -23,6 +26,8 @@ public class JwtAuthenticationFilter extends GenericFilter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
 
         String token = request.getHeader(JWTUtils.HEADER_TOKEN_NAME);   // 从请求头中拿到token
+
+//        System.out.println(token);
 
         if (Objects.nonNull(token) && token.trim().length() > 0) {
 

@@ -91,7 +91,7 @@
     select
     <include refid="Base_Column_List" />
     from sys_url_auth
-    where ua_id = #{uaUrl,jdbcType=VARCHAR}
+    where ua_url = #{uaUrl,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from sys_url_auth

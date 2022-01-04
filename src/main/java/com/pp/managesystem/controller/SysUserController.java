@@ -41,7 +41,7 @@ public class SysUserController {
     }
 
     /**
-     * 获取所有用户易读
+     * 获取所有用户详情
      * @return SysMsg
      */
     @GetMapping("/detail")

@@ -14,7 +14,7 @@ public class OnAuthFailHandler extends SimpleUrlAuthenticationFailureHandler {
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
 
         response.setContentType("application/json;charset=utf-8");
-        SysMsg result = SysMsg.failed().add("auth","用户名/密码错误");
+        SysMsg result = SysMsg.failed().add("code",400).add("auth","用户名/密码错误");
         response.getWriter().write(result.toString());
     }
 }
