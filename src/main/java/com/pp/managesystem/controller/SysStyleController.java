@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("style")
+@RequestMapping("sys_style")
 public class SysStyleController {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -20,7 +20,7 @@ public class SysStyleController {
      * 获取所有样式
      * @return SysMsg
      */
-    @GetMapping
+    @GetMapping("/detail")
     public SysMsg getAllStyles(){
         try {
             logger.info("尝试获取所有样式");

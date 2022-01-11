@@ -2,13 +2,10 @@ package com.pp.managesystem.service;
 
 import com.pp.managesystem.dao.SysShowTableMapper;
 import com.pp.managesystem.entity.SysShowTable;
+import com.pp.managesystem.entity.SysShowTableBase;
 import com.pp.managesystem.entity.SysShowTableExample;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -40,5 +37,9 @@ public class SyShowTableService {
 
     public List<SysShowTable> selectShowTableByTableId(int id){
         return sysShowTableMapper.selectByTableId(id);
+    }
+
+    public List<SysShowTableBase> selectByTable(String table){
+        return sysShowTableMapper.selectByTable(table);
     }
 }

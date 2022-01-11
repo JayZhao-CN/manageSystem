@@ -36,4 +36,8 @@ public class SysCompanyService {
     public int deleteCompany(int id) {
         return sysCompanyMapper.deleteByPrimaryKey(id);
     }
+
+    public List<SysCompany> queryLikeName(String coName){
+        return sysCompanyMapper.selectByLikeName(coName);
+    }
 }

@@ -29,7 +29,6 @@ public class OnAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
             SysMsg result = SysMsg.success()
                     .add("token",jwt.toString());
             response.setHeader("Content-Type","text/html;charset=utf-8");

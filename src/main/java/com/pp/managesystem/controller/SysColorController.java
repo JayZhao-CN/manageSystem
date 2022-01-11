@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("1")
+@RequestMapping("sys_color")
 public class SysColorController {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());

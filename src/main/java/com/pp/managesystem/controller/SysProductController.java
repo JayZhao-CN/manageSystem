@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("product")
+@RequestMapping("sys_product")
 public class SysProductController {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -20,7 +20,7 @@ public class SysProductController {
      * 获取所有产品
      * @return SysMsg
      */
-    @GetMapping
+    @GetMapping("/detail")
     public SysMsg getAllProducts(){
         try {
             logger.info("尝试获取所有产品");

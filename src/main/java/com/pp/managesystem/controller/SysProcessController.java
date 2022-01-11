@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("process")
+@RequestMapping("sys_process")
 public class SysProcessController {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -20,7 +20,7 @@ public class SysProcessController {
      * 获取所有工序
      * @return SysMsg
      */
-    @GetMapping
+    @GetMapping("/detail")
     public SysMsg getAllProcesses(){
         try {
             logger.info("尝试获取所有工序");

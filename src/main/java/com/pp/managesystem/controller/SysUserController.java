@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("12")
+@RequestMapping("sys_user")
 public class SysUserController {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -32,7 +32,7 @@ public class SysUserController {
             logger.info("尝试查询所有用户");
             PageHelper.startPage(pageNum,pageSize);
             List<SysUser> allUsers = sysUserService.getAllUsers();
-            PageInfo pageInfo = new PageInfo(allUsers);
+            PageInfo pageInfo = new PageInfo<>(allUsers);
             return SysMsg.success().add("dataInfo",pageInfo);
         }catch (Exception e){
             logger.error(e.toString());

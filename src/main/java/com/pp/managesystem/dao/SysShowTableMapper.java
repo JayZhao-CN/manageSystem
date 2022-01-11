@@ -1,10 +1,12 @@
 package com.pp.managesystem.dao;
 
 import com.pp.managesystem.entity.SysShowTable;
+import com.pp.managesystem.entity.SysShowTableBase;
 import com.pp.managesystem.entity.SysShowTableExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public interface SysShowTableMapper {
@@ -31,4 +33,6 @@ public interface SysShowTableMapper {
     int updateByPrimaryKeySelective(SysShowTable record);
 
     int updateByPrimaryKey(SysShowTable record);
+
+    List<SysShowTableBase> selectByTable(String table);
 }

@@ -199,4 +199,10 @@
       st_name = #{stName,jdbcType=VARCHAR}
     where st_id = #{stId,jdbcType=INTEGER}
   </update>
+
+  <select id="selectByTable" resultType="java.util.Map" parameterType="java.lang.String">
+    select column_name,data_type,COLUMN_COMMENT
+    from information_schema.columns
+    where table_schema = 'manage_sys' AND table_name = #{sys_table_name};
+  </select>
 </mapper>

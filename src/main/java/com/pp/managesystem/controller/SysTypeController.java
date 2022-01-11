@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("type")
+@RequestMapping("sys_type")
 public class SysTypeController {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -20,7 +20,7 @@ public class SysTypeController {
      * 获取所有类型
      * @return SysMsg
      */
-    @GetMapping
+    @GetMapping("/detail")
     public SysMsg getAllTypes(){
 
         try {

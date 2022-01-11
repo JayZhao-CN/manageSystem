@@ -96,3 +96,15 @@ server:
       charset: utf-8
       enabled: true
       force: true
+
+#监控配置
+management:
+  server:
+    port: 8085
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always

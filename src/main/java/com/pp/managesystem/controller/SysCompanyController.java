@@ -8,8 +8,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("company")
+@RequestMapping("sys_company")
 public class SysCompanyController {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -20,7 +22,7 @@ public class SysCompanyController {
      * 获取所有公司
      * @return SysMsg
      */
-    @GetMapping
+    @GetMapping("/detail")
     public SysMsg getAllCompanys(){
         try {
             logger.info("尝试获取所有公司");
@@ -93,5 +95,13 @@ public class SysCompanyController {
             logger.error(e.toString());
             return SysMsg.failed();
         }
+    }
+
+    @PostMapping("/queryCompanyLike")
+    public SysMsg queryLike(@RequestParam("chars")String chars){
+        System.out.println(chars);
+        List<SysCompany> sysCompanies = sysCompanyService.queryLikeName(chars);
+        System.out.println(sysCompanies);
+        return SysMsg.success().add("company",sysCompanies);
     }
 }

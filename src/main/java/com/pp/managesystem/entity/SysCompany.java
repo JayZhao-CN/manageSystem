@@ -13,6 +13,13 @@ public class SysCompany implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public SysCompany() {
+    }
+
+    public SysCompany(String coName) {
+        this.coName = coName;
+    }
+
     public Integer getCoId() {
         return coId;
     }

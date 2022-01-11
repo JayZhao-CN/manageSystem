@@ -17,6 +17,7 @@ public class MySecurityMetadataSource implements FilterInvocationSecurityMetadat
     @Autowired
     private SysUrlAuthMapper sysUrlAuthMapper;
     private Map<String, Collection<ConfigAttribute>> map = null;
+
     /**
      * 加载权限表中所有操作请求权限
      */
@@ -61,9 +62,8 @@ public class MySecurityMetadataSource implements FilterInvocationSecurityMetadat
 
     @Override
     public Collection<ConfigAttribute> getAttributes(Object o) throws IllegalArgumentException {
-        if (map == null) {
-            loadResourceDefine();
-        }
+//        map.clear();
+        loadResourceDefine();
         //Object中包含用户请求request
         String url = ((FilterInvocation) o).getRequestUrl();
         if (url.contains("?")) {
@@ -117,6 +117,7 @@ public class MySecurityMetadataSource implements FilterInvocationSecurityMetadat
     public Collection<ConfigAttribute> getAllConfigAttributes() {
         return null;
     }
+
     @Override
     public boolean supports(Class<?> aClass) {
         return true;

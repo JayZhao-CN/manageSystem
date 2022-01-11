@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("position")
+@RequestMapping("sys_position")
 public class SysPositionController {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -20,7 +20,7 @@ public class SysPositionController {
      * 获取所有职位
      * @return SysMsg
      */
-    @GetMapping
+    @GetMapping("/detail")
     public SysMsg getAllPositions(){
         try {
             logger.info("尝试获取所有职位工序");

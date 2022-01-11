@@ -24,7 +24,8 @@ public class JwtAuthenticationFilter extends GenericFilter {
                          FilterChain filterChain) throws IOException, ServletException {
 
         HttpServletRequest request = (HttpServletRequest) servletRequest;
-
+        System.out.println(request.getParameter("username"));
+        System.out.println(request.getParameter("password"));
         String token = request.getHeader(JWTUtils.HEADER_TOKEN_NAME);   // 从请求头中拿到token
 
 //        System.out.println(token);
