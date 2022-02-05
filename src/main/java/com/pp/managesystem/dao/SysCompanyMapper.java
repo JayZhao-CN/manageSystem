@@ -23,6 +23,8 @@ public interface SysCompanyMapper {
 
     SysCompany selectByPrimaryKey(Integer coId);
 
+    SysCompany selectByCompanyCode(String coCode);
+
     List<SysCompany> selectByLikeName(String coName);
 
     int updateByExampleSelective(@Param("record") SysCompany record, @Param("example") SysCompanyExample example);

@@ -3,7 +3,7 @@ package com.pp.managesystem.security;
 import com.pp.managesystem.security.filter.JwtAuthenticationFilter;
 import com.pp.managesystem.security.handle.*;
 import com.pp.managesystem.security.interceptor.MyFilterSecurityInterceptor;
-import com.pp.managesystem.service.SysUserDetailsService;
+import com.pp.managesystem.security.service.SysUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

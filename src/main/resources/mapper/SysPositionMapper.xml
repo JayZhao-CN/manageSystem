@@ -5,6 +5,7 @@
     <id column="p_id" jdbcType="INTEGER" property="pId" />
     <result column="p_name" jdbcType="VARCHAR" property="pName" />
     <result column="p_code" jdbcType="VARCHAR" property="pCode" />
+    <result column="p_company" jdbcType="VARCHAR" property="pCompany" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    p_id, p_name, p_code
+    p_id, p_name, p_code, p_company
   </sql>
   <select id="selectByExample" parameterType="com.pp.managesystem.entity.SysPositionExample" resultMap="BaseResultMap">
     select
@@ -87,6 +88,24 @@
     from sys_position
     where p_id = #{pId,jdbcType=INTEGER}
   </select>
+
+<!-- 根据公司查询职位数据 -->
+  <select id="selectByCompany" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_position
+    where p_company = #{pCompany,jdbcType=VARCHAR}
+  </select>
+
+<!--根据职位编号查询详细信息-->
+  <select id="selectByPositionCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from sys_position
+    where p_code = #{code}
+  </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from sys_position
     where p_id = #{pId,jdbcType=INTEGER}

@@ -30,7 +30,10 @@ public class OnAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
                 e.printStackTrace();
             }
             SysMsg result = SysMsg.success()
-                    .add("token",jwt.toString());
+                    .add("token",jwt.toString())
+                    .add("roles",((SecurityUserDetailsImp) auth.getPrincipal()).getRoles())
+                    .add("username",((SecurityUserDetailsImp) auth.getPrincipal()).getUsername())
+                    .add("companyAndRoleList",((SecurityUserDetailsImp) auth.getPrincipal()).getCompany());
             response.setHeader("Content-Type","text/html;charset=utf-8");
             response.getWriter()
                     .write(String.valueOf(result));

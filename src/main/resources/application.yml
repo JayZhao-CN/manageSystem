@@ -84,6 +84,8 @@ spring:
 #mybatis配置
 mybatis:
   mapper-locations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 #指定日志文件储存位置
 logging:

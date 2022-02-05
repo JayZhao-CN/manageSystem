@@ -1,7 +1,11 @@
 package com.pp.managesystem.entity;
 
-import java.io.Serializable;
+import lombok.ToString;
 
+import java.io.Serializable;
+import java.util.List;
+
+@ToString
 public class SysUser implements Serializable {
     private Integer uId;
 
@@ -17,13 +21,47 @@ public class SysUser implements Serializable {
 
     private String uPosition;
 
+    private List<String> uPositions;
+
     private Long uTimeStart;
 
     private Long uTimeEnd;
 
     private Integer uToken;
 
+    private String uNickCode;
+
+    public String getuNickCode() {
+        return uNickCode;
+    }
+
+    public void setuNickCode(String uNickCode) {
+        this.uNickCode = uNickCode;
+    }
+
     public SysUser() {
+    }
+
+    public SysUser(Integer uId, String uUsername, String uCode, String uPassword, String uPhone, String uCompany, String uPosition, Long uTimeStart, Long uTimeEnd, Integer uToken, String uNickCode) {
+        this.uId = uId;
+        this.uUsername = uUsername;
+        this.uCode = uCode;
+        this.uPassword = uPassword;
+        this.uPhone = uPhone;
+        this.uCompany = uCompany;
+        this.uPosition = uPosition;
+        this.uTimeStart = uTimeStart;
+        this.uTimeEnd = uTimeEnd;
+        this.uToken = uToken;
+        this.uNickCode = uNickCode;
+    }
+
+    public List<String> getuPositions() {
+        return uPositions;
+    }
+
+    public void setuPositions(List<String> uPositions) {
+        this.uPositions = uPositions;
     }
 
     public SysUser(String uUsername, Integer uToken) {
@@ -126,6 +164,7 @@ public class SysUser implements Serializable {
                 ", uTimeStart=" + uTimeStart +
                 ", uTimeEnd=" + uTimeEnd +
                 ", uToken=" + uToken +
+                ", uNickCode='" + uNickCode + '\'' +
                 '}';
     }
 }

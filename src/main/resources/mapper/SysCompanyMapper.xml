@@ -99,6 +99,14 @@
         from sys_company
         where co_id = #{coId,jdbcType=INTEGER}
     </select>
+
+    <select id="selectByCompanyCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_company
+        where co_code = #{coCode}
+    </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete
         from sys_company

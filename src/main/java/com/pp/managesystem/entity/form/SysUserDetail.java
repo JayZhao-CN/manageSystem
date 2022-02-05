@@ -1,9 +1,12 @@
-package com.pp.managesystem.entity;
+package com.pp.managesystem.entity.form;
 
-import org.springframework.stereotype.Component;
+import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 
+@ToString
 public class SysUserDetail implements Serializable {
     private Integer uId;
 
@@ -21,11 +24,31 @@ public class SysUserDetail implements Serializable {
 
     private String uPosition;
 
+    private Map<String, List<Map<String,String>>> positionList;//职位数组
+
     private String uPositionDetail;//职位名
 
     private Long uTimeStart;
 
     private Long uTimeEnd;
+
+    private String uNickCode;
+
+    public Map<String, List<Map<String, String>>> getPositionList() {
+        return positionList;
+    }
+
+    public void setPositionList(Map<String, List<Map<String, String>>> positionList) {
+        this.positionList = positionList;
+    }
+
+    public String getuNickCode() {
+        return uNickCode;
+    }
+
+    public void setuNickCode(String uNickCode) {
+        this.uNickCode = uNickCode;
+    }
 
     private static final long serialVersionUID = 1L;
 
@@ -117,23 +140,4 @@ public class SysUserDetail implements Serializable {
         this.uTimeEnd = uTimeEnd;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", uId=").append(uId);
-        sb.append(", uUsername=").append(uUsername);
-        sb.append(", uCode=").append(uCode);
-        sb.append(", uPassword=").append(uPassword);
-        sb.append(", uPhone=").append(uPhone);
-        sb.append(", uCompany=").append(uCompany);
-        sb.append(", uPosition=").append(uPosition);
-        sb.append(", uTimeStart=").append(uTimeStart);
-        sb.append(", uTimeEnd=").append(uTimeEnd);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
-    }
 }

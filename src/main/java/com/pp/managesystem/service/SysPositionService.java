@@ -25,6 +25,10 @@ public class SysPositionService {
         return sysPositionMapper.selectByPrimaryKey(id);
     }
 
+    public List<SysPosition> getPositionByCompany(String company) {
+        return sysPositionMapper.selectByCompany(company);
+    }
+
     public Integer addPosition(SysPosition sysPosition) {
         return sysPositionMapper.insert(sysPosition);
     }

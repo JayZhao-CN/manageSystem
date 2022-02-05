@@ -24,11 +24,7 @@ public class JwtAuthenticationFilter extends GenericFilter {
                          FilterChain filterChain) throws IOException, ServletException {
 
         HttpServletRequest request = (HttpServletRequest) servletRequest;
-        System.out.println(request.getParameter("username"));
-        System.out.println(request.getParameter("password"));
         String token = request.getHeader(JWTUtils.HEADER_TOKEN_NAME);   // 从请求头中拿到token
-
-//        System.out.println(token);
 
         if (Objects.nonNull(token) && token.trim().length() > 0) {
 
@@ -37,7 +33,6 @@ public class JwtAuthenticationFilter extends GenericFilter {
             if (Objects.nonNull(payload) && payload.trim().length() > 0) {
 
                 ObjectMapper objectMapper = new ObjectMapper();
-                // 我这个项目的payload是UserDetailImp的序列化后的Json，这里将其还原为UserDetailImpl对象
 
                 SecurityUserDetailsImp user = objectMapper.readValue(payload, SecurityUserDetailsImp.class);
 

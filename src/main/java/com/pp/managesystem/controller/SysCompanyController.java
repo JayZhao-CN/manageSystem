@@ -1,13 +1,16 @@
 package com.pp.managesystem.controller;
 
-import com.pp.managesystem.entity.SysMsg;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.pp.managesystem.entity.SysCompany;
+import com.pp.managesystem.entity.SysMsg;
 import com.pp.managesystem.service.SysCompanyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -23,10 +26,13 @@ public class SysCompanyController {
      * @return SysMsg
      */
     @GetMapping("/detail")
-    public SysMsg getAllCompanys(){
+    public SysMsg getAllCompanys(@RequestParam(value = "page",defaultValue = "1")int page,@RequestParam(value = "perPage",defaultValue = "5")int perPage){
         try {
             logger.info("尝试获取所有公司");
-            return SysMsg.success().add("companys",sysCompanyService.getAllCompanys());
+            PageHelper.startPage(page,perPage);
+            List<SysCompany> allCompanys = sysCompanyService.getAllCompanys();
+            PageInfo<SysCompany> pageInfo = new PageInfo<>(allCompanys);
+            return SysMsg.success().add("dataInfo",pageInfo);
         }catch (Exception e){
             logger.error(e.toString());
             return SysMsg.failed();
@@ -43,6 +49,23 @@ public class SysCompanyController {
         try {
             logger.info("尝试获取公司："+id);
             return SysMsg.success().add("company",sysCompanyService.getCompany(id));
+        }catch (Exception e){
+            logger.error(e.toString());
+            return SysMsg.failed();
+        }
+    }
+
+    @PostMapping("/code")
+    public SysMsg getCompanyByCode(@RequestBody List<String> companies){
+        try {
+            logger.info("尝试获取公司："+companies);
+
+            List<SysCompany> companyNames = new ArrayList<>();
+            for (String code : companies) {
+                SysCompany companyByCode = sysCompanyService.getCompanyByCode(code);
+                companyNames.add(companyByCode);
+            }
+            return SysMsg.success().add("companyNames",companyNames);
         }catch (Exception e){
             logger.error(e.toString());
             return SysMsg.failed();
@@ -98,10 +121,10 @@ public class SysCompanyController {
     }
 
     @PostMapping("/queryCompanyLike")
-    public SysMsg queryLike(@RequestParam("chars")String chars){
-        System.out.println(chars);
+    public SysMsg queryLike(@RequestParam("chars")String chars,@RequestParam(value = "page",defaultValue = "1")int page,@RequestParam(value = "perPage",defaultValue = "5")int perPage){
+        PageHelper.startPage(page,perPage);
         List<SysCompany> sysCompanies = sysCompanyService.queryLikeName(chars);
-        System.out.println(sysCompanies);
-        return SysMsg.success().add("company",sysCompanies);
+        PageInfo<SysCompany> pageInfo = new PageInfo<>(sysCompanies);
+        return SysMsg.success().add("dataInfo",pageInfo);
     }
 }

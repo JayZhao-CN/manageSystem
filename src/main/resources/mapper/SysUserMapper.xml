@@ -26,7 +26,7 @@
     <result column="u_token" jdbcType="INTEGER" property="uToken" />
   </resultMap>
 
-  <resultMap id="DetailResultMap" type="com.pp.managesystem.entity.SysUserDetail">
+  <resultMap id="DetailResultMap" type="com.pp.managesystem.entity.form.SysUserDetail">
     <id column="u_id" jdbcType="INTEGER" property="uId" />
     <result column="u_username" jdbcType="VARCHAR" property="uUsername" />
     <result column="u_code" jdbcType="VARCHAR" property="uCode" />
@@ -36,6 +36,7 @@
     <result column="u_position" jdbcType="VARCHAR" property="uPosition" />
     <result column="u_time_start" jdbcType="BIGINT" property="uTimeStart" />
     <result column="u_time_end" jdbcType="BIGINT" property="uTimeEnd" />
+    <result column="u_nick_code" jdbcType="VARCHAR" property="uNickCode" />
 
     <result column="u_company_detail" jdbcType="VARCHAR" property="uCompanyDetail"/>
     <result column="u_position_detail" jdbcType="VARCHAR" property="uPositionDetail"/>
@@ -101,7 +102,7 @@
   </sql>
   <sql id="Base_Column_List">
     u_id, u_username, u_code, u_password, u_phone, u_company, u_position, u_time_start, 
-    u_time_end
+    u_time_end,u_nick_code
   </sql>
   <select id="selectByExample" parameterType="com.pp.managesystem.entity.SysUserExample" resultMap="BaseResultMap">
     select
@@ -117,6 +118,30 @@
       order by ${orderByClause}
     </if>
   </select>
+
+  <!--查询当天最大值-->
+  <select id="selectMaxCode" parameterType="java.lang.String" resultType="java.lang.String">
+  select max(u_code) from sys_user
+  where u_code like concat(#{preCode},'%')
+</select>
+
+<!--查询当前公司的编号是否重复-->
+<!--  <select id="selectEqCode" parameterType="java.util.Map" resultType="java.util.Map">-->
+<!--    select u_username username,max(u_nick_code) max_code from sys_user-->
+<!--where u_company = #{company} and u_nick_code = #{nickCode}-->
+<!--  </select>-->
+
+  <!--查询当前公司的编号是否重复-->
+  <select id="selectEqCode" parameterType="java.lang.String" resultType="java.util.Map">
+    select u_username username,u_nick_code rowCode from sys_user
+    where u_company like concat('%/',#{company,jdbcType=VARCHAR},'/%')  and u_nick_code like concat('%/',#{company,jdbcType=VARCHAR},'.%')
+  </select>
+
+  <select id="selectEqNewUser" parameterType="java.util.Map" resultType="java.util.Map">
+    select u_username username,u_phone phone from sys_user
+    where u_username = #{username} and u_phone = #{phone}
+  </select>
+
   <select id="selectAll" parameterType="com.pp.managesystem.entity.SysUserExample" resultMap="DetailResultMap">
     select
     <include refid="Base_Column_List" />
@@ -129,11 +154,31 @@ left join sys_position
 on sys_user.u_position=sys_position.p_code
   </select>
 
-  <select id="selectByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectCompanyAll" parameterType="java.lang.String" resultMap="DetailResultMap">
+    select
+    <include refid="Base_Column_List" />
+    ,co_name as u_company_detail
+    ,p_name as u_position_detail
+    from sys_user
+    left join sys_company
+    on sys_user.u_company=sys_company.co_code
+    left join sys_position
+    on sys_user.u_position=sys_position.p_code
+where u_company = #{uCompany,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectUserLikeCompany" parameterType="java.lang.String" resultMap="DetailResultMap">
     select
     <include refid="Base_Column_List" />
     from sys_user
-    where u_username = #{uUsername,jdbcType=VARCHAR}
+    where u_company like concat('%/',#{uCompany,jdbcType=VARCHAR},'/%')
+  </select>
+
+  <select id="selectByCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_user
+    where u_code = #{code,jdbcType=VARCHAR}
   </select>
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -141,6 +186,13 @@ on sys_user.u_position=sys_position.p_code
     <include refid="Base_Column_List" />
     from sys_user
     where u_id = #{uId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectUsernameByCode" parameterType="java.lang.String" resultType="java.lang.String">
+    select
+    u_username username
+    from sys_user
+    where u_code = #{code}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from sys_user
@@ -155,11 +207,11 @@ on sys_user.u_position=sys_position.p_code
   <insert id="insert" parameterType="com.pp.managesystem.entity.SysUser">
     insert into sys_user (u_id, u_username, u_code, 
       u_password, u_phone, u_company, 
-      u_position, u_time_start, u_time_end
+      u_position, u_time_start, u_time_end, u_nick_code
       )
     values (#{uId,jdbcType=INTEGER}, #{uUsername,jdbcType=VARCHAR}, #{uCode,jdbcType=VARCHAR}, 
       #{uPassword,jdbcType=VARCHAR}, #{uPhone,jdbcType=VARCHAR}, #{uCompany,jdbcType=VARCHAR}, 
-      #{uPosition,jdbcType=VARCHAR}, #{uTimeStart,jdbcType=BIGINT}, #{uTimeEnd,jdbcType=BIGINT}
+      #{uPosition,jdbcType=VARCHAR}, #{uTimeStart,jdbcType=BIGINT}, #{uTimeEnd,jdbcType=BIGINT}, #{uNickCode,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.pp.managesystem.entity.SysUser">
@@ -305,6 +357,9 @@ on sys_user.u_position=sys_position.p_code
       </if>
       <if test="uTimeEnd != null">
         u_time_end = #{uTimeEnd,jdbcType=BIGINT},
+      </if>
+      <if test="uNickCode != null">
+        u_nick_code = #{uNickCode,jdbcType=VARCHAR},
       </if>
     </set>
     where u_id = #{uId,jdbcType=INTEGER}

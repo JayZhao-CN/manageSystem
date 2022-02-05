@@ -2,9 +2,10 @@ package com.pp.managesystem.dao;
 
 import com.pp.managesystem.entity.SysPosition;
 import com.pp.managesystem.entity.SysPositionExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public interface SysPositionMapper {
@@ -21,6 +22,10 @@ public interface SysPositionMapper {
     List<SysPosition> selectByExample(SysPositionExample example);
 
     SysPosition selectByPrimaryKey(Integer pId);
+
+    List<SysPosition> selectByCompany(String pCompany);
+
+    SysPosition selectByPositionCode(String code);
 
     int updateByExampleSelective(@Param("record") SysPosition record, @Param("example") SysPositionExample example);
 

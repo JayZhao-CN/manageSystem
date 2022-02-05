@@ -1,13 +1,17 @@
-package com.pp.managesystem.entity;
+package com.pp.managesystem.entity.form;
 
 import java.io.Serializable;
 
-public class SysPosition implements Serializable {
+public class SysPositionDetail implements Serializable {
     private Integer pId;
 
     private String pName;
 
     private String pCode;
+
+    private String pCompany;
+
+    private static final long serialVersionUID = 1L;
 
     public String getpCompany() {
         return pCompany;
@@ -16,10 +20,6 @@ public class SysPosition implements Serializable {
     public void setpCompany(String pCompany) {
         this.pCompany = pCompany;
     }
-
-    private String pCompany;
-
-    private static final long serialVersionUID = 1L;
 
     public Integer getpId() {
         return pId;
@@ -47,7 +47,7 @@ public class SysPosition implements Serializable {
 
     @Override
     public String toString() {
-        return "SysPosition{" +
+        return "SysPositionDetail{" +
                 "pId=" + pId +
                 ", pName='" + pName + '\'' +
                 ", pCode='" + pCode + '\'' +

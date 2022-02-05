@@ -25,6 +25,11 @@ public class SysCompanyService {
         return sysCompanyMapper.selectByPrimaryKey(id);
     }
 
+    public SysCompany getCompanyByCode(String code) {
+        return sysCompanyMapper.selectByCompanyCode(code);
+    }
+
+
     public Integer addCompany(SysCompany sysCompany) {
         return sysCompanyMapper.insert(sysCompany);
     }
