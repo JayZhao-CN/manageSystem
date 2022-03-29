@@ -8,8 +8,18 @@ public class SysColor implements Serializable {
     private String cName;
 
     private String cCode;
+    private String cCompany;
+    private String cColor;
 
     private static final long serialVersionUID = 1L;
+
+    public SysColor() {
+    }
+
+    public SysColor(Integer cId, String cCompany) {
+        this.cId = cId;
+        this.cCompany = cCompany;
+    }
 
     public Integer getcId() {
         return cId;
@@ -35,17 +45,30 @@ public class SysColor implements Serializable {
         this.cCode = cCode == null ? null : cCode.trim();
     }
 
+    public String getcCompany() {
+        return cCompany;
+    }
+
+    public void setcCompany(String cCompany) {
+        this.cCompany = cCompany;
+    }
+
+    public String getcColor() {
+        return cColor;
+    }
+
+    public void setcColor(String cColor) {
+        this.cColor = cColor;
+    }
+
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", cId=").append(cId);
-        sb.append(", cName=").append(cName);
-        sb.append(", cCode=").append(cCode);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
+        return "SysColor{" +
+                "cId=" + cId +
+                ", cName='" + cName + '\'' +
+                ", cCode='" + cCode + '\'' +
+                ", cCompany='" + cCompany + '\'' +
+                ", cColor='" + cColor + '\'' +
+                '}';
     }
 }

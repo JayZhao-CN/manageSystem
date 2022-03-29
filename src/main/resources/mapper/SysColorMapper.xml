@@ -5,6 +5,8 @@
     <id column="c_id" jdbcType="INTEGER" property="cId" />
     <result column="c_name" jdbcType="VARCHAR" property="cName" />
     <result column="c_code" jdbcType="VARCHAR" property="cCode" />
+    <result column="c_company" jdbcType="VARCHAR" property="cCompany" />
+    <result column="c_color" jdbcType="VARCHAR" property="cColor" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    c_id, c_name, c_code
+    c_id, c_name, c_code, c_company, c_color
   </sql>
   <select id="selectByExample" parameterType="com.pp.managesystem.entity.SysColorExample" resultMap="BaseResultMap">
     select
@@ -81,6 +83,29 @@
       order by ${orderByClause}
     </if>
   </select>
+
+<!--查询颜色操作-->
+  <select id="selectByCompany" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_color
+    where c_company = #{company}
+  </select>
+
+  <!--查询颜色操作-->
+  <select id="selectByNameAndCompany" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_color
+    where c_name = #{name} and c_company = #{company}
+  </select>
+
+<!--  查询当日最大编号-->
+  <select id="selectMaxCode" parameterType="java.lang.String" resultType="java.lang.String">
+    select max(c_code) from sys_color
+    where c_code like concat(#{preCode},'%')
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -98,9 +123,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.pp.managesystem.entity.SysColor">
-    insert into sys_color (c_id, c_name, c_code
+    insert into sys_color (c_id, c_name, c_code, c_company, c_color
       )
-    values (#{cId,jdbcType=INTEGER}, #{cName,jdbcType=VARCHAR}, #{cCode,jdbcType=VARCHAR}
+    values (#{cId,jdbcType=INTEGER}, #{cName,jdbcType=VARCHAR}, #{cCode,jdbcType=VARCHAR}, #{cCompany,jdbcType=VARCHAR}, #{cColor,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.pp.managesystem.entity.SysColor">
@@ -146,6 +171,12 @@
       <if test="record.cCode != null">
         c_code = #{record.cCode,jdbcType=VARCHAR},
       </if>
+      <if test="record.cCompany != null">
+        c_company = #{record.cCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cColor != null">
+        c_color = #{record.cColor,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -168,6 +199,12 @@
       </if>
       <if test="cCode != null">
         c_code = #{cCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cCompany != null">
+        c_company = #{cCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="cColor != null">
+        c_color = #{cColor,jdbcType=VARCHAR},
       </if>
     </set>
     where c_id = #{cId,jdbcType=INTEGER}

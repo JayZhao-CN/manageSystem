@@ -70,7 +70,7 @@ public class SysUserController {
     }
 
     @PostMapping("/add")
-    public SysMsg addUserByCompany(SysUser sysUser,@RequestParam("new")String newUser,@RequestParam("addHad")boolean addHad) {
+    public SysMsg addUserByCompany(SysUser sysUser,@RequestParam("new")String newUser,@RequestParam(value = "addHad",required = false)boolean addHad) {
 
         try {
             /**
@@ -79,7 +79,7 @@ public class SysUserController {
             // 定义提示信息
             StringBuffer msg = new StringBuffer();
             // 校验手机号
-            if (!sysUser.getuPhone().matches(PATTEN_REGEX_PHONE)) {
+            if (newUser.equals("true") && !sysUser.getuPhone().matches(PATTEN_REGEX_PHONE)) {
                 msg.append("请正确填写手机号！ ");
             }
             // 校验自定义编号
@@ -164,9 +164,48 @@ public class SysUserController {
                 positionString.setLength(0);
                 return SysMsg.success()
                         .add("state", integer);
+            }
+            else if (newUser.equals("false")) {
+                /**
+                 * 校验用户名和账号是否匹配
+                 */
+                String username = sysUser.getuUsername();
+                String userCode = sysUser.getuCode();
+                if (username != null && username.equals(sysUserService.getUsername(userCode))){
+                    /**
+                     * 修改该用户信息
+                     */
+                    SysUser DBUser = sysUserService.getUser(userCode);
+                    Integer uId = DBUser.getuId();
+                    String DBCompany = DBUser.getuCompany();
+                    String DBNickCode = DBUser.getuNickCode();
+                    String DBPosition = DBUser.getuPosition();
+                    if (DBCompany.contains("/"+sysUser.getuCompany()+"/")){
+                        // 该员工已在该公司
+                        return SysMsg.failed().add("msg","该用户已是公司员工！");
+                    }
+                    StringBuilder stringBuilder = new StringBuilder();
+                    stringBuilder.append(DBCompany).append("/").append(sysUser.getuCompany()).append("/");
+                    String MixCompany = stringBuilder.toString(); // 合成后的公司
+                    stringBuilder.setLength(0);
+                    stringBuilder.append(DBNickCode).append("/").append(sysUser.getuCompany()).append(".").append(sysUser.getuNickCode()).append("/");
+                    String MixNickCode = stringBuilder.toString(); // 合成后的自定义编号
+                    stringBuilder.setLength(0);
+                    List<String> positions = sysUser.getuPositions();
+                    StringBuilder positionBuilder = new StringBuilder();
+                    for (String position : positions) {
+                        positionBuilder.append("/").append(position).append("/");
+                    }
+                    stringBuilder.append(DBPosition).append("/").append(positionBuilder).append("/");
+                    String MixPosition = stringBuilder.toString(); // 合成后的职位
+                    return SysMsg.success()
+                            .add("state",sysUserService.updateUser(new SysUser(uId,sysUser.getuUsername(),
+                                    sysUser.getuCode(),null,sysUser.getuPhone(),MixCompany,MixPosition,
+                                    null,null,null,MixNickCode)));
+                }
+                return SysMsg.failed().add("msg","添加失败，请稍后重试！");
             }else {
-                return SysMsg.success()
-                        .add("state", "老用户");
+                return SysMsg.failed();
             }
         }catch (Exception e){
             logger.error(e.toString());
@@ -181,11 +220,12 @@ public class SysUserController {
             System.out.println(sysUser);
             System.out.println(resetPw);
             logger.info("尝试修改用户："+sysUser.getuUsername());
-            String code = sysUser.getuCompany() + sysUser.getuNickCode();
+//            String code = sysUser.getuCompany() + sysUser.getuNickCode();
+            Integer integer = sysUserService.updateUser(new SysUser(sysUser.getuId(), sysUser.getuUsername(), null,
+                    resetPw ? "123456" : null, sysUser.getuPhone(), sysUser.getuCompany(), sysUser.getuPosition(),
+                    null, null, null, sysUser.getuNickCode()));
             return SysMsg.success()
-                    .add("state",sysUserService.updateUser(new SysUser(sysUser.getuId(),sysUser.getuUsername(),
-                            code,resetPw ? "123456" : null,sysUser.getuPhone(),null,sysUser.getuPosition(),
-                            null,null,null,sysUser.getuNickCode())));
+                    .add("state",integer);
         }catch (Exception e){
             logger.error(e.toString());
             return SysMsg.failed();
@@ -239,45 +279,45 @@ public class SysUserController {
         }
     }
 
-    /**
-     * 修改用户
-     * @param sysUser
-     * @return SysMsg
-     */
-    @PutMapping
-    public SysMsg updateUser(@RequestBody SysUser sysUser) {
-        try {
-            logger.info("尝试更改用户："+sysUser);
-            return SysMsg.success().add("state",sysUserService.updateUser(sysUser));
-        }catch (Exception e){
-            logger.error(e.toString());
-            return SysMsg.failed();
-        }
-    }
+//    /**
+//     * 修改用户
+//     * @param sysUser
+//     * @return SysMsg
+//     */
+//    @PutMapping
+//    public SysMsg updateUser(@RequestBody SysUser sysUser) {
+//        try {
+//            logger.info("尝试更改用户："+sysUser);
+//            return SysMsg.success().add("state",sysUserService.updateUser(sysUser));
+//        }catch (Exception e){
+//            logger.error(e.toString());
+//            return SysMsg.failed();
+//        }
+//    }
 
-    /**
-     * 删除用户
-     * @param id
-     * @return SysMsg
-     */
-    @DeleteMapping("/{uid}")
-    public SysMsg deleteUser(@PathVariable("uid") int id) {
-
-        try {
-            logger.info("尝试添加用户："+id);
-            return SysMsg.success().add("state",sysUserService.deleteUser(id));
-        }catch (Exception e){
-            logger.error(e.toString());
-            return SysMsg.failed();
-        }
-    }
+//    /**
+//     * 删除用户
+//     * @param id
+//     * @return SysMsg
+//     */
+//    @DeleteMapping("/{uid}")
+//    public SysMsg deleteUser(@PathVariable("uid") int id) {
+//
+//        try {
+//            logger.info("尝试添加用户："+id);
+//            return SysMsg.success().add("state",sysUserService.deleteUser(id));
+//        }catch (Exception e){
+//            logger.error(e.toString());
+//            return SysMsg.failed();
+//        }
+//    }
 
     @GetMapping("/delete")
     public SysMsg deleteUserByCompany(@RequestParam("uId")int id,@RequestParam("uCompany")String company) {
 
         try {
             logger.info("尝试删除用户："+id);
-            return SysMsg.success().add("state",sysUserService.deleteUser(id));
+            return SysMsg.success().add("state",sysUserService.deleteUser(id,company));
         }catch (Exception e){
             logger.error(e.toString());
             return SysMsg.failed();

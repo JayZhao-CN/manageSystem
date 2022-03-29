@@ -2,9 +2,10 @@ package com.pp.managesystem.dao;
 
 import com.pp.managesystem.entity.SysColor;
 import com.pp.managesystem.entity.SysColorExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public interface SysColorMapper {
@@ -20,7 +21,13 @@ public interface SysColorMapper {
 
     List<SysColor> selectByExample(SysColorExample example);
 
+    List<SysColor> selectByCompany(String company);
+
     SysColor selectByPrimaryKey(Integer cId);
+
+    String selectMaxCode(String perCode);
+
+    SysColor selectByNameAndCompany(String name, String company);
 
     int updateByExampleSelective(@Param("record") SysColor record, @Param("example") SysColorExample example);
 

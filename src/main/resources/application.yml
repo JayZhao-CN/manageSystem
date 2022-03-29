@@ -110,3 +110,10 @@ management:
   endpoint:
     health:
       show-details: always
+
+#自定义文件上传路径配置
+upload:
+  path:
+    per: http:\\
+    ip: 127.0.0.1
+    port: 8085

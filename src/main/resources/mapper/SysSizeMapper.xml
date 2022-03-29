@@ -5,6 +5,7 @@
     <id column="s_id" jdbcType="INTEGER" property="sId" />
     <result column="s_name" jdbcType="VARCHAR" property="sName" />
     <result column="s_code" jdbcType="VARCHAR" property="sCode" />
+    <result column="s_company" jdbcType="VARCHAR" property="sCompany" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    s_id, s_name, s_code
+    s_id, s_name, s_code, s_company
   </sql>
   <select id="selectByExample" parameterType="com.pp.managesystem.entity.SysSizeExample" resultMap="BaseResultMap">
     select
@@ -87,6 +88,29 @@
     from sys_size
     where s_id = #{sId,jdbcType=INTEGER}
   </select>
+
+  <!--查询尺寸操作-->
+  <select id="selectByCompany" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_size
+    where s_company = #{company}
+  </select>
+
+  <!--查询颜色操作-->
+  <select id="selectByNameAndCompany" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_size
+    where s_name = #{name} and s_company = #{company}
+  </select>
+
+  <!--  查询当日最大编号-->
+  <select id="selectMaxCode" parameterType="java.lang.String" resultType="java.lang.String">
+    select max(s_code) from sys_size
+    where s_code like concat(#{preCode},'%')
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from sys_size
     where s_id = #{sId,jdbcType=INTEGER}
@@ -98,9 +122,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.pp.managesystem.entity.SysSize">
-    insert into sys_size (s_id, s_name, s_code
+    insert into sys_size (s_id, s_name, s_code, s_company
       )
-    values (#{sId,jdbcType=INTEGER}, #{sName,jdbcType=VARCHAR}, #{sCode,jdbcType=VARCHAR}
+    values (#{sId,jdbcType=INTEGER}, #{sName,jdbcType=VARCHAR}, #{sCode,jdbcType=VARCHAR}, #{sCompany,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.pp.managesystem.entity.SysSize">
@@ -168,6 +192,9 @@
       </if>
       <if test="sCode != null">
         s_code = #{sCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sCompany != null">
+        s_company = #{sCompany,jdbcType=VARCHAR},
       </if>
     </set>
     where s_id = #{sId,jdbcType=INTEGER}

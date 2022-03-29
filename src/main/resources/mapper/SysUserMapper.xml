@@ -11,6 +11,7 @@
     <result column="u_position" jdbcType="VARCHAR" property="uPosition" />
     <result column="u_time_start" jdbcType="BIGINT" property="uTimeStart" />
     <result column="u_time_end" jdbcType="BIGINT" property="uTimeEnd" />
+    <result column="u_nick_code" jdbcType="VARCHAR" property="uNickCode" />
   </resultMap>
 
   <resultMap id="TokenResultMap" type="com.pp.managesystem.entity.SysUser">

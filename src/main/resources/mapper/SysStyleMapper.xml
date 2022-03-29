@@ -5,6 +5,8 @@
     <id column="st_id" jdbcType="INTEGER" property="stId" />
     <result column="st_name" jdbcType="VARCHAR" property="stName" />
     <result column="st_code" jdbcType="VARCHAR" property="stCode" />
+    <result column="st_img" jdbcType="VARCHAR" property="stImg" />
+    <result column="st_company" jdbcType="VARCHAR" property="stCompany" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,8 +67,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    st_id, st_name, st_code
+    st_id, st_name, st_code, st_img, st_company
   </sql>
+<!--查询公司的样式-->
+  <select id="selectByCompany" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_style
+    where st_company = #{company}
+  </select>
+
   <select id="selectByExample" parameterType="com.pp.managesystem.entity.SysStyleExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -87,6 +97,20 @@
     from sys_style
     where st_id = #{stId,jdbcType=INTEGER}
   </select>
+
+<!-- 根据名称和公司查询 -->
+  <select id="selectByNameAndCompany" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_style
+    where st_name = #{name} and st_company = #{company}
+  </select>
+  <!--  查询当日最大编号-->
+  <select id="selectMaxCode" parameterType="java.lang.String" resultType="java.lang.String">
+    select max(st_code) from sys_style
+    where st_code like concat(#{preCode},'%')
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from sys_style
     where st_id = #{stId,jdbcType=INTEGER}
@@ -98,9 +122,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.pp.managesystem.entity.SysStyle">
-    insert into sys_style (st_id, st_name, st_code
+    insert into sys_style (st_id, st_name, st_code, st_img, st_company
       )
-    values (#{stId,jdbcType=INTEGER}, #{stName,jdbcType=VARCHAR}, #{stCode,jdbcType=VARCHAR}
+    values (#{stId,jdbcType=INTEGER}, #{stName,jdbcType=VARCHAR}, #{stCode,jdbcType=VARCHAR}, #{stImg,jdbcType=VARCHAR}, #{stCompany,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.pp.managesystem.entity.SysStyle">
@@ -168,6 +192,12 @@
       </if>
       <if test="stCode != null">
         st_code = #{stCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stImg != null">
+        st_img = #{stImg,jdbcType=VARCHAR},
+      </if>
+      <if test="stCompany != null">
+        st_company = #{stCompany,jdbcType=VARCHAR},
       </if>
     </set>
     where st_id = #{stId,jdbcType=INTEGER}

@@ -9,7 +9,25 @@ public class SysSize implements Serializable {
 
     private String sCode;
 
+    private String sCompany;
+
+    public SysSize() {
+    }
+
+    public SysSize(Integer sId, String sCompany) {
+        this.sId = sId;
+        this.sCompany = sCompany;
+    }
+
     private static final long serialVersionUID = 1L;
+
+    public String getsCompany() {
+        return sCompany;
+    }
+
+    public void setsCompany(String sCompany) {
+        this.sCompany = sCompany;
+    }
 
     public Integer getsId() {
         return sId;
@@ -37,15 +55,11 @@ public class SysSize implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", sId=").append(sId);
-        sb.append(", sName=").append(sName);
-        sb.append(", sCode=").append(sCode);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
+        return "SysSize{" +
+                "sId=" + sId +
+                ", sName='" + sName + '\'' +
+                ", sCode='" + sCode + '\'' +
+                ", sCompany='" + sCompany + '\'' +
+                '}';
     }
 }

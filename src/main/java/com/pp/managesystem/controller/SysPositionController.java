@@ -44,12 +44,17 @@ public class SysPositionController {
      * @return SysMsg
      */
     @GetMapping("/detail")
-    public SysMsg getAllPositionsByCompany(@RequestParam(value = "pageNum")Integer pageNum,
-                                           @RequestParam(value = "pageSize")Integer pageSize,@RequestParam("company")String company){
+    public SysMsg getAllPositionsByCompany(@RequestParam(value = "pageNum",required = false)Integer pageNum,
+                                           @RequestParam(value = "pageSize",required = false)Integer pageSize,@RequestParam("company")String company){
         try {
             logger.info("尝试获取所有职位");
-            PageHelper.startPage(pageNum,pageSize);
-            List<SysPosition> allPositions = sysPositionService.getPositionByCompany(company);
+            List<SysPosition> allPositions = new ArrayList<>();
+            if (pageNum == null || pageSize == null){
+                allPositions = sysPositionService.getPositionByCompany(company);
+            }else {
+                PageHelper.startPage(pageNum,pageSize);
+                allPositions = sysPositionService.getPositionByCompany(company);
+            }
             PageInfo<SysPosition> pageInfo = new PageInfo<>(allPositions);
             return SysMsg.success().add("dataInfo",pageInfo);
         }catch (Exception e){

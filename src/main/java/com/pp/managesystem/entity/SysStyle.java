@@ -9,7 +9,28 @@ public class SysStyle implements Serializable {
 
     private String stCode;
 
+    private String stImg;
+
+    private String stCompany;
+
+
     private static final long serialVersionUID = 1L;
+
+    public SysStyle() {
+    }
+
+    public SysStyle(Integer stId, String stCompany) {
+        this.stId = stId;
+        this.stCompany = stCompany;
+    }
+
+    public String getStImg() {
+        return stImg;
+    }
+
+    public void setStImg(String stImg) {
+        this.stImg = stImg;
+    }
 
     public Integer getStId() {
         return stId;
@@ -35,17 +56,22 @@ public class SysStyle implements Serializable {
         this.stCode = stCode == null ? null : stCode.trim();
     }
 
+    public String getStCompany() {
+        return stCompany;
+    }
+
+    public void setStCompany(String stCompany) {
+        this.stCompany = stCompany;
+    }
+
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", stId=").append(stId);
-        sb.append(", stName=").append(stName);
-        sb.append(", stCode=").append(stCode);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
+        return "SysStyle{" +
+                "stId=" + stId +
+                ", stName='" + stName + '\'' +
+                ", stCode='" + stCode + '\'' +
+                ", stImg='" + stImg + '\'' +
+                ", stCompany='" + stCompany + '\'' +
+                '}';
     }
 }
