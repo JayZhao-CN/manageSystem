@@ -47,7 +47,9 @@ public class SysStyleService {
         String stCode = perCode + 1;
         // 查询为年月日+max+1
         if (maxCode != null && !maxCode.equals("")) {
-            stCode = String.valueOf(Integer.parseInt(maxCode) + 1);
+            // 这个才是当日最大
+            String currentNum = maxCode.substring(6);
+            stCode = maxCode.substring(0,6) + (Integer.parseInt(currentNum) + 1);
         }
         sysStyle.setStCode(stCode);
         return sysStyleMapper.insert(sysStyle);

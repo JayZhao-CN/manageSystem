@@ -59,7 +59,9 @@ public class SysColorService {
         String cCode = perCode + 1;
         // 查询为年月日+max+1
         if (maxCode != null && !maxCode.equals("")) {
-            cCode = String.valueOf(Integer.parseInt(maxCode) + 1);
+            // 这个才是当日最大
+            String currentNum = maxCode.substring(6);
+            cCode = maxCode.substring(0,6) + (Integer.parseInt(currentNum) + 1);
         }
         sysColor.setcCode(cCode);
 

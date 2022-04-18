@@ -11,11 +11,9 @@ public class SysProduct implements Serializable {
 
     private String prBatch;
 
-    private String prType;
+    private String prProcess;
 
-    private String prColor;
-
-    private String prSize;
+    private String prProductor;
 
     private Integer prCount;
 
@@ -55,28 +53,20 @@ public class SysProduct implements Serializable {
         this.prBatch = prBatch == null ? null : prBatch.trim();
     }
 
-    public String getPrType() {
-        return prType;
+    public String getPrProcess() {
+        return prProcess;
     }
 
-    public void setPrType(String prType) {
-        this.prType = prType == null ? null : prType.trim();
+    public void setPrProcess(String prProcess) {
+        this.prProcess = prProcess == null ? null : prProcess.trim();
     }
 
-    public String getPrColor() {
-        return prColor;
+    public String getPrProductor() {
+        return prProductor;
     }
 
-    public void setPrColor(String prColor) {
-        this.prColor = prColor == null ? null : prColor.trim();
-    }
-
-    public String getPrSize() {
-        return prSize;
-    }
-
-    public void setPrSize(String prSize) {
-        this.prSize = prSize == null ? null : prSize.trim();
+    public void setPrProductor(String prProductor) {
+        this.prProductor = prProductor == null ? null : prProductor.trim();
     }
 
     public Integer getPrCount() {
@@ -105,9 +95,8 @@ public class SysProduct implements Serializable {
         sb.append(", prCode=").append(prCode);
         sb.append(", prCompany=").append(prCompany);
         sb.append(", prBatch=").append(prBatch);
-        sb.append(", prType=").append(prType);
-        sb.append(", prColor=").append(prColor);
-        sb.append(", prSize=").append(prSize);
+        sb.append(", prProcess=").append(prProcess);
+        sb.append(", prProductor=").append(prProductor);
         sb.append(", prCount=").append(prCount);
         sb.append(", prRemark=").append(prRemark);
         sb.append(", serialVersionUID=").append(serialVersionUID);

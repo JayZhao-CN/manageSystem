@@ -9,7 +9,25 @@ public class SysType implements Serializable {
 
     private String tCode;
 
+    private String tCompany;
+
     private static final long serialVersionUID = 1L;
+
+    public SysType() {
+    }
+
+    public SysType(Integer tId, String tCompany) {
+        this.tId = tId;
+        this.tCompany = tCompany;
+    }
+
+    public String gettCompany() {
+        return tCompany;
+    }
+
+    public void settCompany(String tCompany) {
+        this.tCompany = tCompany;
+    }
 
     public Integer gettId() {
         return tId;
@@ -37,15 +55,11 @@ public class SysType implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", tId=").append(tId);
-        sb.append(", tName=").append(tName);
-        sb.append(", tCode=").append(tCode);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
+        return "SysType{" +
+                "tId=" + tId +
+                ", tName='" + tName + '\'' +
+                ", tCode='" + tCode + '\'' +
+                ", tCompany='" + tCompany + '\'' +
+                '}';
     }
 }

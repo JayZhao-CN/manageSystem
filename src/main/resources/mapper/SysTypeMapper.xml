@@ -5,6 +5,7 @@
     <id column="t_id" jdbcType="INTEGER" property="tId" />
     <result column="t_name" jdbcType="VARCHAR" property="tName" />
     <result column="t_code" jdbcType="VARCHAR" property="tCode" />
+    <result column="t_company" jdbcType="VARCHAR" property="tCompany" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    t_id, t_name, t_code
+    t_id, t_name, t_code, t_company
   </sql>
   <select id="selectByExample" parameterType="com.pp.managesystem.entity.SysTypeExample" resultMap="BaseResultMap">
     select
@@ -87,6 +88,30 @@
     from sys_type
     where t_id = #{tId,jdbcType=INTEGER}
   </select>
+
+  <!--查询种类操作-->
+  <select id="selectByCompany" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_type
+    where t_company = #{company}
+  </select>
+
+  <!--查询种类操作-->
+  <select id="selectByNameAndCompany" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_type
+    where t_name = #{name} and t_company = #{company}
+  </select>
+
+  <!--  查询当日最大编号-->
+  <select id="selectMaxCode" parameterType="java.lang.String" resultType="java.lang.String">
+    select max(t_code) from sys_type
+    where t_code like concat(#{preCode},'%')
+  </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from sys_type
     where t_id = #{tId,jdbcType=INTEGER}
@@ -98,9 +123,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.pp.managesystem.entity.SysType">
-    insert into sys_type (t_id, t_name, t_code
+    insert into sys_type (t_id, t_name, t_code, t_company
       )
-    values (#{tId,jdbcType=INTEGER}, #{tName,jdbcType=VARCHAR}, #{tCode,jdbcType=VARCHAR}
+    values (#{tId,jdbcType=INTEGER}, #{tName,jdbcType=VARCHAR}, #{tCode,jdbcType=VARCHAR}, #{tCompany,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.pp.managesystem.entity.SysType">
@@ -168,6 +193,9 @@
       </if>
       <if test="tCode != null">
         t_code = #{tCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tCompany != null">
+        t_company = #{tCompany,jdbcType=VARCHAR},
       </if>
     </set>
     where t_id = #{tId,jdbcType=INTEGER}

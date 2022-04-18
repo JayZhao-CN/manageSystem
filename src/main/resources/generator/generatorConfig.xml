@@ -65,6 +65,6 @@
 <!--        <table tableName="sys_operation_table"></table>-->
 <!--            <table tableName="sys_show_table"></table>-->
 <!--            <table tableName="sys_table_info"></table>-->
-            <table tableName="sys_url_auth"></table>
+            <table tableName="sys_product"></table>
     </context>
 </generatorConfiguration>

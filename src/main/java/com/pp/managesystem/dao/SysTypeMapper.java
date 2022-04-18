@@ -2,9 +2,10 @@ package com.pp.managesystem.dao;
 
 import com.pp.managesystem.entity.SysType;
 import com.pp.managesystem.entity.SysTypeExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public interface SysTypeMapper {
@@ -20,7 +21,13 @@ public interface SysTypeMapper {
 
     List<SysType> selectByExample(SysTypeExample example);
 
+    String selectMaxCode(String perCode);
+
     SysType selectByPrimaryKey(Integer tId);
+
+    List<SysType> selectByCompany(String company);
+
+    SysType selectByNameAndCompany(String name, String company);
 
     int updateByExampleSelective(@Param("record") SysType record, @Param("example") SysTypeExample example);
 

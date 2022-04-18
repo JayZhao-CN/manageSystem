@@ -1,5 +1,7 @@
 package com.pp.managesystem.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.pp.managesystem.entity.SysMsg;
 import com.pp.managesystem.entity.SysProcess;
 import com.pp.managesystem.service.SysProcessService;
@@ -7,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("sys_process")
@@ -17,14 +21,19 @@ public class SysProcessController {
     SysProcessService sysProcessService;
 
     /**
-     * 获取所有工序
+     * 获取所有尺寸
      * @return SysMsg
      */
     @GetMapping("/detail")
-    public SysMsg getAllProcesses(){
+    public SysMsg getAllProcesses(@RequestParam(value = "pageNum")Integer pageNum,
+                              @RequestParam(value = "pageSize")Integer pageSize,
+                              @RequestParam("prcCompany")String prcCompany){
         try {
             logger.info("尝试获取所有工序");
-            return SysMsg.success().add("processes",sysProcessService.getAllProcesses());
+            PageHelper.startPage(pageNum,pageSize);
+            List<SysProcess> allProcesses = sysProcessService.getByCompany(prcCompany);
+            PageInfo<SysProcess> pageInfo = new PageInfo<>(allProcesses);
+            return SysMsg.success().add("dataInfo",pageInfo);
         }catch (Exception e){
             logger.error(e.toString());
             return SysMsg.failed();
@@ -32,29 +41,20 @@ public class SysProcessController {
     }
 
     /**
-     * 获取指定工序
-     * @param id
-     * @return SysMsg
-     */
-    @GetMapping("/{pid}")
-    public SysMsg getProcess(@PathVariable("pid")int id){
-        try {
-            logger.info("尝试获取工序："+id);
-            return SysMsg.success().add("process",sysProcessService.getProcess(id));
-        }catch (Exception e){
-            logger.error(e.toString());
-            return SysMsg.failed();
-        }
-    }
-
-    /**
-     * 添加工序
+     * 添加尺寸
      * @param sysProcess
      * @return SysMsg
      */
-    @PostMapping
-    public SysMsg addProcess(@RequestBody SysProcess sysProcess) {
+    @PostMapping("/add")
+    public SysMsg addProcess(SysProcess sysProcess) {
+
         try {
+            // 校验工序是否存在
+            SysProcess sysProcess1 = sysProcessService.selectByNameAndCompany(sysProcess.getPrcName(), sysProcess.getPrcCompany());
+            if (null != sysProcess1) {
+                return SysMsg.failed().add("msg",sysProcess1.getPrcCompany()+" 已存在！编号为：" + sysProcess1.getPrcCode());
+            }
+
             logger.info("尝试添加工序："+sysProcess);
             return SysMsg.success().add("state",sysProcessService.addProcess(sysProcess));
         }catch (Exception e){
@@ -68,9 +68,15 @@ public class SysProcessController {
      * @param sysProcess
      * @return SysMsg
      */
-    @PutMapping
-    public SysMsg updateProcess(@RequestBody SysProcess sysProcess) {
+    @PostMapping("/change")
+    public SysMsg updateProcess(SysProcess sysProcess) {
         try {
+            // 校验工序是否存在
+            SysProcess sysProcess1 = sysProcessService.selectByNameAndCompany(sysProcess.getPrcName(), sysProcess.getPrcCompany());
+            if (null != sysProcess1 && !sysProcess1.getPrcId().equals(sysProcess.getPrcId())) {
+                return SysMsg.failed().add("msg",sysProcess1.getPrcName()+" 已存在！编号为：" + sysProcess1.getPrcCode());
+            }
+
             logger.info("尝试修改工序："+sysProcess);
             return SysMsg.success().add("state",sysProcessService.updateProcess(sysProcess));
         }catch (Exception e){
@@ -80,15 +86,15 @@ public class SysProcessController {
     }
 
     /**
-     * 删除工序
+     * 删除尺寸
      * @param id
      * @return SysMsg
      */
-    @DeleteMapping("/{pid}")
-    public SysMsg deleteProcess(@PathVariable("pid") int id) {
+    @GetMapping("/delete")
+    public SysMsg deleteSize(@RequestParam("prcId")int id,@RequestParam("prcCompany")String company) {
         try {
             logger.info("尝试删除工序："+id);
-            return SysMsg.success().add("state",sysProcessService.deleteProcess(id));
+            return SysMsg.success().add("state",sysProcessService.deleteProcess(id,company));
         }catch (Exception e){
             logger.error(e.toString());
             return SysMsg.failed();

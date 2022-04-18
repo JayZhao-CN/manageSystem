@@ -374,213 +374,143 @@ public class SysProductExample {
             return (Criteria) this;
         }
 
-        public Criteria andPrTypeIsNull() {
-            addCriterion("pr_type is null");
+        public Criteria andPrProcessIsNull() {
+            addCriterion("pr_process is null");
             return (Criteria) this;
         }
 
-        public Criteria andPrTypeIsNotNull() {
-            addCriterion("pr_type is not null");
+        public Criteria andPrProcessIsNotNull() {
+            addCriterion("pr_process is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPrTypeEqualTo(String value) {
-            addCriterion("pr_type =", value, "prType");
+        public Criteria andPrProcessEqualTo(String value) {
+            addCriterion("pr_process =", value, "prProcess");
             return (Criteria) this;
         }
 
-        public Criteria andPrTypeNotEqualTo(String value) {
-            addCriterion("pr_type <>", value, "prType");
+        public Criteria andPrProcessNotEqualTo(String value) {
+            addCriterion("pr_process <>", value, "prProcess");
             return (Criteria) this;
         }
 
-        public Criteria andPrTypeGreaterThan(String value) {
-            addCriterion("pr_type >", value, "prType");
+        public Criteria andPrProcessGreaterThan(String value) {
+            addCriterion("pr_process >", value, "prProcess");
             return (Criteria) this;
         }
 
-        public Criteria andPrTypeGreaterThanOrEqualTo(String value) {
-            addCriterion("pr_type >=", value, "prType");
+        public Criteria andPrProcessGreaterThanOrEqualTo(String value) {
+            addCriterion("pr_process >=", value, "prProcess");
             return (Criteria) this;
         }
 
-        public Criteria andPrTypeLessThan(String value) {
-            addCriterion("pr_type <", value, "prType");
+        public Criteria andPrProcessLessThan(String value) {
+            addCriterion("pr_process <", value, "prProcess");
             return (Criteria) this;
         }
 
-        public Criteria andPrTypeLessThanOrEqualTo(String value) {
-            addCriterion("pr_type <=", value, "prType");
+        public Criteria andPrProcessLessThanOrEqualTo(String value) {
+            addCriterion("pr_process <=", value, "prProcess");
             return (Criteria) this;
         }
 
-        public Criteria andPrTypeLike(String value) {
-            addCriterion("pr_type like", value, "prType");
+        public Criteria andPrProcessLike(String value) {
+            addCriterion("pr_process like", value, "prProcess");
             return (Criteria) this;
         }
 
-        public Criteria andPrTypeNotLike(String value) {
-            addCriterion("pr_type not like", value, "prType");
+        public Criteria andPrProcessNotLike(String value) {
+            addCriterion("pr_process not like", value, "prProcess");
             return (Criteria) this;
         }
 
-        public Criteria andPrTypeIn(List<String> values) {
-            addCriterion("pr_type in", values, "prType");
+        public Criteria andPrProcessIn(List<String> values) {
+            addCriterion("pr_process in", values, "prProcess");
             return (Criteria) this;
         }
 
-        public Criteria andPrTypeNotIn(List<String> values) {
-            addCriterion("pr_type not in", values, "prType");
+        public Criteria andPrProcessNotIn(List<String> values) {
+            addCriterion("pr_process not in", values, "prProcess");
             return (Criteria) this;
         }
 
-        public Criteria andPrTypeBetween(String value1, String value2) {
-            addCriterion("pr_type between", value1, value2, "prType");
+        public Criteria andPrProcessBetween(String value1, String value2) {
+            addCriterion("pr_process between", value1, value2, "prProcess");
             return (Criteria) this;
         }
 
-        public Criteria andPrTypeNotBetween(String value1, String value2) {
-            addCriterion("pr_type not between", value1, value2, "prType");
+        public Criteria andPrProcessNotBetween(String value1, String value2) {
+            addCriterion("pr_process not between", value1, value2, "prProcess");
             return (Criteria) this;
         }
 
-        public Criteria andPrColorIsNull() {
-            addCriterion("pr_color is null");
+        public Criteria andPrProductorIsNull() {
+            addCriterion("pr_productor is null");
             return (Criteria) this;
         }
 
-        public Criteria andPrColorIsNotNull() {
-            addCriterion("pr_color is not null");
+        public Criteria andPrProductorIsNotNull() {
+            addCriterion("pr_productor is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPrColorEqualTo(String value) {
-            addCriterion("pr_color =", value, "prColor");
+        public Criteria andPrProductorEqualTo(String value) {
+            addCriterion("pr_productor =", value, "prProductor");
             return (Criteria) this;
         }
 
-        public Criteria andPrColorNotEqualTo(String value) {
-            addCriterion("pr_color <>", value, "prColor");
+        public Criteria andPrProductorNotEqualTo(String value) {
+            addCriterion("pr_productor <>", value, "prProductor");
             return (Criteria) this;
         }
 
-        public Criteria andPrColorGreaterThan(String value) {
-            addCriterion("pr_color >", value, "prColor");
+        public Criteria andPrProductorGreaterThan(String value) {
+            addCriterion("pr_productor >", value, "prProductor");
             return (Criteria) this;
         }
 
-        public Criteria andPrColorGreaterThanOrEqualTo(String value) {
-            addCriterion("pr_color >=", value, "prColor");
+        public Criteria andPrProductorGreaterThanOrEqualTo(String value) {
+            addCriterion("pr_productor >=", value, "prProductor");
             return (Criteria) this;
         }
 
-        public Criteria andPrColorLessThan(String value) {
-            addCriterion("pr_color <", value, "prColor");
+        public Criteria andPrProductorLessThan(String value) {
+            addCriterion("pr_productor <", value, "prProductor");
             return (Criteria) this;
         }
 
-        public Criteria andPrColorLessThanOrEqualTo(String value) {
-            addCriterion("pr_color <=", value, "prColor");
+        public Criteria andPrProductorLessThanOrEqualTo(String value) {
+            addCriterion("pr_productor <=", value, "prProductor");
             return (Criteria) this;
         }
 
-        public Criteria andPrColorLike(String value) {
-            addCriterion("pr_color like", value, "prColor");
+        public Criteria andPrProductorLike(String value) {
+            addCriterion("pr_productor like", value, "prProductor");
             return (Criteria) this;
         }
 
-        public Criteria andPrColorNotLike(String value) {
-            addCriterion("pr_color not like", value, "prColor");
+        public Criteria andPrProductorNotLike(String value) {
+            addCriterion("pr_productor not like", value, "prProductor");
             return (Criteria) this;
         }
 
-        public Criteria andPrColorIn(List<String> values) {
-            addCriterion("pr_color in", values, "prColor");
+        public Criteria andPrProductorIn(List<String> values) {
+            addCriterion("pr_productor in", values, "prProductor");
             return (Criteria) this;
         }
 
-        public Criteria andPrColorNotIn(List<String> values) {
-            addCriterion("pr_color not in", values, "prColor");
+        public Criteria andPrProductorNotIn(List<String> values) {
+            addCriterion("pr_productor not in", values, "prProductor");
             return (Criteria) this;
         }
 
-        public Criteria andPrColorBetween(String value1, String value2) {
-            addCriterion("pr_color between", value1, value2, "prColor");
+        public Criteria andPrProductorBetween(String value1, String value2) {
+            addCriterion("pr_productor between", value1, value2, "prProductor");
             return (Criteria) this;
         }
 
-        public Criteria andPrColorNotBetween(String value1, String value2) {
-            addCriterion("pr_color not between", value1, value2, "prColor");
-            return (Criteria) this;
-        }
-
-        public Criteria andPrSizeIsNull() {
-            addCriterion("pr_size is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andPrSizeIsNotNull() {
-            addCriterion("pr_size is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andPrSizeEqualTo(String value) {
-            addCriterion("pr_size =", value, "prSize");
-            return (Criteria) this;
-        }
-
-        public Criteria andPrSizeNotEqualTo(String value) {
-            addCriterion("pr_size <>", value, "prSize");
-            return (Criteria) this;
-        }
-
-        public Criteria andPrSizeGreaterThan(String value) {
-            addCriterion("pr_size >", value, "prSize");
-            return (Criteria) this;
-        }
-
-        public Criteria andPrSizeGreaterThanOrEqualTo(String value) {
-            addCriterion("pr_size >=", value, "prSize");
-            return (Criteria) this;
-        }
-
-        public Criteria andPrSizeLessThan(String value) {
-            addCriterion("pr_size <", value, "prSize");
-            return (Criteria) this;
-        }
-
-        public Criteria andPrSizeLessThanOrEqualTo(String value) {
-            addCriterion("pr_size <=", value, "prSize");
-            return (Criteria) this;
-        }
-
-        public Criteria andPrSizeLike(String value) {
-            addCriterion("pr_size like", value, "prSize");
-            return (Criteria) this;
-        }
-
-        public Criteria andPrSizeNotLike(String value) {
-            addCriterion("pr_size not like", value, "prSize");
-            return (Criteria) this;
-        }
-
-        public Criteria andPrSizeIn(List<String> values) {
-            addCriterion("pr_size in", values, "prSize");
-            return (Criteria) this;
-        }
-
-        public Criteria andPrSizeNotIn(List<String> values) {
-            addCriterion("pr_size not in", values, "prSize");
-            return (Criteria) this;
-        }
-
-        public Criteria andPrSizeBetween(String value1, String value2) {
-            addCriterion("pr_size between", value1, value2, "prSize");
-            return (Criteria) this;
-        }
-
-        public Criteria andPrSizeNotBetween(String value1, String value2) {
-            addCriterion("pr_size not between", value1, value2, "prSize");
+        public Criteria andPrProductorNotBetween(String value1, String value2) {
+            addCriterion("pr_productor not between", value1, value2, "prProductor");
             return (Criteria) this;
         }
 

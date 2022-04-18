@@ -4,9 +4,7 @@ import com.pp.managesystem.entity.SysProduct;
 import com.pp.managesystem.entity.SysProductExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Component;
 
-@Component
 public interface SysProductMapper {
     long countByExample(SysProductExample example);
 
