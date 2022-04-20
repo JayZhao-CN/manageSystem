@@ -25,8 +25,8 @@ public class SysProcessController {
      * @return SysMsg
      */
     @GetMapping("/detail")
-    public SysMsg getAllProcesses(@RequestParam(value = "pageNum")Integer pageNum,
-                              @RequestParam(value = "pageSize")Integer pageSize,
+    public SysMsg getAllProcesses(@RequestParam(value = "pageNum",defaultValue = "1")Integer pageNum,
+                              @RequestParam(value = "pageSize",defaultValue = "15")Integer pageSize,
                               @RequestParam("prcCompany")String prcCompany){
         try {
             logger.info("尝试获取所有工序");

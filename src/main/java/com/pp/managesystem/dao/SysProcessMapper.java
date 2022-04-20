@@ -4,10 +4,12 @@ import com.pp.managesystem.entity.SysProcess;
 import com.pp.managesystem.entity.SysProcessExample;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Mapper
+@Repository
 public interface SysProcessMapper {
     long countByExample(SysProcessExample example);
 
