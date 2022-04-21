@@ -217,8 +217,6 @@ public class SysUserController {
     public SysMsg changeUserByCompany(SysUser sysUser,@RequestParam("resetPw")boolean resetPw) {
 
         try {
-            System.out.println(sysUser);
-            System.out.println(resetPw);
             logger.info("尝试修改用户："+sysUser.getuUsername());
 //            String code = sysUser.getuCompany() + sysUser.getuNickCode();
             Integer integer = sysUserService.updateUser(new SysUser(sysUser.getuId(), sysUser.getuUsername(), null,

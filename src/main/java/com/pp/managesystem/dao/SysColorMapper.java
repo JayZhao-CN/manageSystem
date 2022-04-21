@@ -2,12 +2,14 @@ package com.pp.managesystem.dao;
 
 import com.pp.managesystem.entity.SysColor;
 import com.pp.managesystem.entity.SysColorExample;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Component
+@Mapper
+@Repository
 public interface SysColorMapper {
     long countByExample(SysColorExample example);
 

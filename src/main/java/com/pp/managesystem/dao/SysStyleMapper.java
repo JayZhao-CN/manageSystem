@@ -2,12 +2,14 @@ package com.pp.managesystem.dao;
 
 import com.pp.managesystem.entity.SysStyle;
 import com.pp.managesystem.entity.SysStyleExample;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Component
+@Mapper
+@Repository
 public interface SysStyleMapper {
     long countByExample(SysStyleExample example);
 

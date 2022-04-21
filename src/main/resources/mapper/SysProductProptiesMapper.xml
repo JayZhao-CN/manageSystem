@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pp.managesystem.dao.SysProductProptiesMapper">
+
+    <select id="getProptiesByTypeCode" parameterType="java.lang.String" resultType="java.util.Map">
+        select p.prc_code processCode,p.prc_name processName
+        from sys_product_propties p2
+        left join sys_process p
+        on p2.propties_code = p.prc_code
+        where p2.product_type_code = #{typeCode}
+    </select>
+</mapper>

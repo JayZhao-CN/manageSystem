@@ -2,11 +2,14 @@ package com.pp.managesystem.dao;
 
 import com.pp.managesystem.entity.SysTableInfo;
 import com.pp.managesystem.entity.SysTableInfoExample;
-import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
+import java.util.List;
+
+@Mapper
+@Repository
 public interface SysTableInfoMapper {
     long countByExample(SysTableInfoExample example);
 

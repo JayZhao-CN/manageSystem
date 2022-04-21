@@ -2,9 +2,14 @@ package com.pp.managesystem.dao;
 
 import com.pp.managesystem.entity.SysProduct;
 import com.pp.managesystem.entity.SysProductExample;
-import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
+@Mapper
+@Repository
 public interface SysProductMapper {
     long countByExample(SysProductExample example);
 

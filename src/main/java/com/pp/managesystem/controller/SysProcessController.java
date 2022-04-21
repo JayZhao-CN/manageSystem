@@ -21,7 +21,7 @@ public class SysProcessController {
     SysProcessService sysProcessService;
 
     /**
-     * 获取所有尺寸
+     * 获取所有
      * @return SysMsg
      */
     @GetMapping("/detail")

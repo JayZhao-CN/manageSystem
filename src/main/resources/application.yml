@@ -82,11 +82,10 @@ spring:
       static-locations: classpath:/
 
 #mybatis配置
-mybatis:
+mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-
 #指定日志文件储存位置
 logging:
   file:

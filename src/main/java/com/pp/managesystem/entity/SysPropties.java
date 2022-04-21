@@ -7,7 +7,6 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * <p>
@@ -15,12 +14,12 @@ import java.util.List;
  * </p>
  *
  * @author Jay
- * @since 2022-04-20
+ * @since 2022-04-21
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class SysProductProcess implements Serializable {
+public class SysPropties implements Serializable {
 
     private static final long serialVersionUID=1L;
 
@@ -28,16 +27,19 @@ public class SysProductProcess implements Serializable {
     private Integer id;
 
     /**
-     * 产品类型code
+     * 属性名
      */
-    private String productTypeCode;
+    private String proptiesName;
 
     /**
-     * 工序code
+     * 所属公司
      */
-    private String processCode;
+    private String proptiesCompanyCode;
 
-    private List<String> processCodes;
+    /**
+     * 属性唯一标识符
+     */
+    private String proptiesCode;
 
 
 }

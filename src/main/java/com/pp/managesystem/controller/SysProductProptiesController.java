@@ -1,9 +1,10 @@
 package com.pp.managesystem.controller;
 
+
 import com.github.pagehelper.PageInfo;
 import com.pp.managesystem.entity.SysMsg;
-import com.pp.managesystem.entity.SysProductProcess;
-import com.pp.managesystem.service.SysProductProcessService;
+import com.pp.managesystem.entity.SysProductPropties;
+import com.pp.managesystem.service.SysProductProptiesService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,13 +12,21 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * <p>
+ *  前端控制器
+ * </p>
+ *
+ * @author Jay
+ * @since 2022-04-21
+ */
 @RestController
-@RequestMapping("/sys_product_process")
+@RequestMapping("/sys_product_propties")
 @Slf4j
-public class SysProductProcessController {
+public class SysProductProptiesController {
 
     @Autowired
-    SysProductProcessService sysProductProcessService;
+    SysProductProptiesService sysProductProptiesService;
 
     @GetMapping("/detail")
     public SysMsg getAllColors(@RequestParam(value = "pageNum")Integer pageNum,
@@ -25,7 +34,7 @@ public class SysProductProcessController {
                                @RequestParam("company")String company){
         try {
             log.info("{}",company);
-            List<Map> detail = sysProductProcessService.getDetail(pageNum, pageSize, company);
+            List<Map> detail = sysProductProptiesService.getDetail(pageNum, pageSize, company);
             PageInfo pageInfo = new PageInfo<>(detail);
             return SysMsg.success().add("dataInfo",pageInfo);
         }catch (Exception e){
@@ -35,18 +44,19 @@ public class SysProductProcessController {
     }
 
     /**
-     * 修改工序
-     * @param sysProductProcess
+     * 修改
+     * @param sysProductPropties
      * @return SysMsg
      */
     @PostMapping("/change")
-    public SysMsg updateProcess(SysProductProcess sysProductProcess,@RequestParam("company")String company) {
+    public SysMsg updateProcess(SysProductPropties sysProductPropties, @RequestParam("company")String company) {
         try {
-            log.info("尝试修改工序配置{}",sysProductProcess);
-            int result = sysProductProcessService.updateProductProcess(sysProductProcess, company);
+            log.info("尝试修改属性{}",sysProductPropties);
+            int result = sysProductProptiesService.updateProductPropties(sysProductPropties, company);
             return SysMsg.success().add("state",result);
         }catch (Exception e){
             return SysMsg.failed();
         }
     }
 }
+

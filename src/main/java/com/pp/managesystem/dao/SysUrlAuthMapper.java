@@ -2,12 +2,14 @@ package com.pp.managesystem.dao;
 
 import com.pp.managesystem.entity.SysUrlAuth;
 import com.pp.managesystem.entity.SysUrlAuthExample;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Component
+@Mapper
+@Repository
 public interface SysUrlAuthMapper {
     long countByExample(SysUrlAuthExample example);
 

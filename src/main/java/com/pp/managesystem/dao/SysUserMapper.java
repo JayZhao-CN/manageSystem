@@ -1,15 +1,17 @@
 package com.pp.managesystem.dao;
 
 import com.pp.managesystem.entity.SysUser;
-import com.pp.managesystem.entity.form.SysUserDetail;
 import com.pp.managesystem.entity.SysUserExample;
+import com.pp.managesystem.entity.form.SysUserDetail;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
 
-@Component
+@Mapper
+@Repository
 public interface SysUserMapper {
     long countByExample(SysUserExample example);
 

@@ -15,12 +15,12 @@ import java.util.List;
  * </p>
  *
  * @author Jay
- * @since 2022-04-20
+ * @since 2022-04-21
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class SysProductProcess implements Serializable {
+public class SysProductPropties implements Serializable {
 
     private static final long serialVersionUID=1L;
 
@@ -30,14 +30,14 @@ public class SysProductProcess implements Serializable {
     /**
      * 产品类型code
      */
-    private String productTypeCode;
+    private Integer productTypeCode;
 
     /**
-     * 工序code
+     * 属性唯一标识符
      */
-    private String processCode;
+    private String proptiesCode;
 
-    private List<String> processCodes;
+    private List<String> proptiesCodes;
 
 
 }

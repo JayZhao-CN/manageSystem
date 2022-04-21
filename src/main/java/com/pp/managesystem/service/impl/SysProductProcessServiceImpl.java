@@ -1,5 +1,6 @@
 package com.pp.managesystem.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.pp.managesystem.dao.SysProductProcessMapper;
@@ -9,6 +10,7 @@ import com.pp.managesystem.entity.SysType;
 import com.pp.managesystem.service.SysProductProcessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -92,5 +94,37 @@ public class SysProductProcessServiceImpl extends ServiceImpl<SysProductProcessM
         });
 
         return resultList;
+    }
+
+    @Override
+    @Transactional
+    public int updateProductProcess(SysProductProcess sysProductProcess, String company) {
+
+        int result = 0;
+
+        String typeCode = sysProductProcess.getProductTypeCode();// 这是产品类型type code
+        List<String> processCodes = sysProductProcess.getProcessCodes(); // 这是前端传来的工序process code
+
+        // 先把之前配置过的数据全清除
+        QueryWrapper<SysProductProcess> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("product_type_code",typeCode);
+        sysProductProcessMapper.delete(queryWrapper);
+
+        // 逐个写入新的配置
+        try {
+            if (processCodes != null && processCodes.size() > 0) {
+                processCodes.forEach(processCode -> {
+                    SysProductProcess sp2 = new SysProductProcess();
+                    sp2.setProductTypeCode(typeCode);
+                    sp2.setProcessCode(processCode);
+                    sysProductProcessMapper.insert(sp2);
+                });
+            }
+            result = 1;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return result;
     }
 }

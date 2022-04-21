@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@Transactional
 public class SysUserDetailsService implements UserDetailsService {
     @Autowired
     private SysUserService sysUserService;
@@ -97,7 +99,11 @@ public class SysUserDetailsService implements UserDetailsService {
                  * 查询该循环公司的名称
                  */
                 SysCompany sysCompany = sysCompanyMapper.selectByCompanyCode(company);// 得到了该公司的所有信息
+                try{
                 map.put("companyName",sysCompany.getCoName());
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
 
                 // company:001
                 map.put("companyCode", company);
@@ -109,19 +115,21 @@ public class SysUserDetailsService implements UserDetailsService {
                 // 循环刚刚保存的角色信息
                 // 比对是否与当前循环中的公司匹配
                 for (SysPosition position : positions) {
-                    String possessCompany = position.getpCompany();
-                    if (possessCompany.equals(company)) {
-                        // 首先构建一个保存职位详细信息的map
-                        Map positionListChild = new HashMap();
-                        positionListChild.put("positionCode",position.getpCode());
+                    if (position != null && !position.equals("")) {
+                        String possessCompany = position.getpCompany();
+                        if (possessCompany.equals(company)) {
+                            // 首先构建一个保存职位详细信息的map
+                            Map positionListChild = new HashMap();
+                            positionListChild.put("positionCode", position.getpCode());
 
-                        /**
-                         * 查询该职位详细信息
-                         */
-                        SysPosition sysPosition = sysPositionMapper.selectByPositionCode(position.getpCode());// 得到当前循环中的职位信息
-                        positionListChild.put("positionName",sysPosition.getpName());
-                        // positionListChild放入positionList
-                        positionList.add(positionListChild);
+                            /**
+                             * 查询该职位详细信息
+                             */
+                            SysPosition sysPosition = sysPositionMapper.selectByPositionCode(position.getpCode());// 得到当前循环中的职位信息
+                            positionListChild.put("positionName", sysPosition.getpName());
+                            // positionListChild放入positionList
+                            positionList.add(positionListChild);
+                        }
                     }
                 }
                 map.put("positionList",positionList);
