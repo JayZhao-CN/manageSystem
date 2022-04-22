@@ -49,7 +49,7 @@ public class SysProductProptiesServiceImpl extends ServiceImpl<SysProductProptie
             // 保存该type的相关数据
             Map typeInfoMap = new HashMap();
 
-            // 根据type_code获取工序配置情况
+            // 根据type_code获取属性配置情况
             String typeCode = sysType.gettCode();
             // 类型名称
             String typeName = sysType.gettName();

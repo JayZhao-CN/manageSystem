@@ -21,7 +21,7 @@ public class SysProcessService {
     SysProcessMapper sysProcessMapper;
 
     /**
-     * 根据公司查询尺寸
+     * 根据公司查询
      * @param company
      * @return
      */
@@ -34,7 +34,7 @@ public class SysProcessService {
     }
 
     /**
-     * 添加颜色生成编号
+     * 添加生成编号
      * @param sysProcess
      * @return
      */

@@ -15,5 +15,11 @@ import java.util.List;
  */
 public interface SysProptiesService extends IService<SysPropties> {
 
-    List<SysPropties> getByCompany(String company);
+    List<SysPropties> getByCompany(String company,boolean isAll);
+
+    SysPropties selectByNameAndCompany(String name, String company);
+
+    int addPropties(SysPropties sysPropties);
+
+    int deletePropties(int id,String company);
 }

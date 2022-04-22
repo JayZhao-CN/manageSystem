@@ -41,7 +41,7 @@ public class SysProcessController {
     }
 
     /**
-     * 添加尺寸
+     * 添加
      * @param sysProcess
      * @return SysMsg
      */

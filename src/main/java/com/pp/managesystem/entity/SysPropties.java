@@ -41,5 +41,10 @@ public class SysPropties implements Serializable {
      */
     private String proptiesCode;
 
+    /**
+     * 特殊字段
+     */
+    private String proptiesType;
+
 
 }

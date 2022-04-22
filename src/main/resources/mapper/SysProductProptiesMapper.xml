@@ -3,10 +3,10 @@
 <mapper namespace="com.pp.managesystem.dao.SysProductProptiesMapper">
 
     <select id="getProptiesByTypeCode" parameterType="java.lang.String" resultType="java.util.Map">
-        select p.prc_code processCode,p.prc_name processName
+        select p.propties_code proptiesCode,p.propties_name proptiesName
         from sys_product_propties p2
-        left join sys_process p
-        on p2.propties_code = p.prc_code
+        left join sys_propties p
+        on p2.propties_code = p.propties_code
         where p2.product_type_code = #{typeCode}
     </select>
 </mapper>
