@@ -11,7 +11,7 @@
  Target Server Version : 80026
  File Encoding         : 65001
 
- Date: 22/04/2022 17:32:02
+ Date: 24/04/2022 17:33:52
 */
 
 SET NAMES utf8mb4;
@@ -29,7 +29,7 @@ CREATE TABLE `sys_color`  (
   `c_company` varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0',
   PRIMARY KEY (`c_id`) USING BTREE,
   UNIQUE INDEX `c_code`(`c_code`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_color
@@ -64,6 +64,26 @@ INSERT INTO `sys_company` VALUES (3, '鸿翔', '2201', 1);
 INSERT INTO `sys_company` VALUES (4, '利辛完胜', '2202', 1);
 INSERT INTO `sys_company` VALUES (5, '利辛美舒', '2203', 1);
 INSERT INTO `sys_company` VALUES (6, '笨鸽科技', '2325', 1);
+
+-- ----------------------------
+-- Table structure for sys_ext_propties
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_ext_propties`;
+CREATE TABLE `sys_ext_propties`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'x属性.表.name',
+  `color` varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '颜色编码',
+  `image` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '图片url',
+  `propties_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '属性标识符',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sys_ext_propties
+-- ----------------------------
+INSERT INTO `sys_ext_propties` VALUES (1, '皮革', '#AC710C', NULL, 'ad-47a47745-ad');
+INSERT INTO `sys_ext_propties` VALUES (2, '人造革', '#AC710C', 'http:\\\\127.0.0.1:8085\\static\\upload\\1650787912408测试图片.png', 'ad-47a47745-ad');
+INSERT INTO `sys_ext_propties` VALUES (3, '化纤', NULL, 'http:\\\\127.0.0.1:8085\\static\\upload\\1650787912408测试图片.png', 'ad-47a47745-ad');
 
 -- ----------------------------
 -- Table structure for sys_ext_propties_column
@@ -141,7 +161,7 @@ CREATE TABLE `sys_process`  (
   `prc_company` varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0' COMMENT '所属公司',
   PRIMARY KEY (`prc_id`) USING BTREE,
   UNIQUE INDEX `prc_code`(`prc_code`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_process
@@ -190,7 +210,7 @@ CREATE TABLE `sys_product_process`  (
   `product_type_code` varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '产品类型code',
   `process_code` varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '工序code',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_product_process
@@ -230,15 +250,16 @@ CREATE TABLE `sys_propties`  (
   `propties_code` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '属性唯一标识符',
   `propties_type` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '属性特殊字段（颜色、图片）',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 31 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_propties
 -- ----------------------------
-INSERT INTO `sys_propties` VALUES (1, '材质', '2325', 'ad-47a47745-ad', NULL);
+INSERT INTO `sys_propties` VALUES (1, '材质', '2325', 'ad-47a47745-ad', 'yes');
 INSERT INTO `sys_propties` VALUES (2, '颜色', '1', '2204221', NULL);
 INSERT INTO `sys_propties` VALUES (3, '尺寸', '1', '2204222', NULL);
 INSERT INTO `sys_propties` VALUES (4, '样式', '1', '2204223', NULL);
+INSERT INTO `sys_propties` VALUES (30, '属性1', '2325', 'a1166a0133b94445a78c91ee0b842789', 'no');
 
 -- ----------------------------
 -- Table structure for sys_show_table
@@ -250,7 +271,7 @@ CREATE TABLE `sys_show_table`  (
   `st_column` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `st_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`st_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_show_table
@@ -278,7 +299,7 @@ CREATE TABLE `sys_size`  (
   `s_company` varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0',
   PRIMARY KEY (`s_id`) USING BTREE,
   UNIQUE INDEX `s_code`(`s_code`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_size
@@ -299,7 +320,7 @@ CREATE TABLE `sys_style`  (
   `st_company` varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0',
   PRIMARY KEY (`st_id`) USING BTREE,
   UNIQUE INDEX `st_code`(`st_code`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 56 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 55 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_style
@@ -308,6 +329,7 @@ INSERT INTO `sys_style` VALUES (52, '1', 2203141, 'http:\\\\127.0.0.1:8085\\stat
 INSERT INTO `sys_style` VALUES (53, '2', 2203142, 'http:\\\\127.0.0.1:8085\\static\\upload\\1647263947789注册.png', '2325');
 INSERT INTO `sys_style` VALUES (54, '3', 2203143, 'http:\\\\127.0.0.1:8085\\static\\upload\\1647263956291注册1.png', '2325');
 INSERT INTO `sys_style` VALUES (55, '46', 2203151, 'http:\\\\127.0.0.1:8085\\static\\upload\\1647352530182R-C.png', '/2325');
+INSERT INTO `sys_style` VALUES (56, '样式图片测试', 2204241, 'http:\\\\127.0.0.1:8085\\static\\upload\\1650787912408测试图片.png', '2325');
 
 -- ----------------------------
 -- Table structure for sys_table_info
@@ -319,7 +341,7 @@ CREATE TABLE `sys_table_info`  (
   `ti_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `ti_lable` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '通俗叫法',
   PRIMARY KEY (`ti_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_table_info
