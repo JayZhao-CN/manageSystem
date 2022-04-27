@@ -17,4 +17,12 @@ import java.util.Map;
 public interface SysExtProptiesService extends IService<SysExtPropties> {
 
     List<Map> getByCompanyAndType(String company, String proptiesType);
+
+    SysExtPropties selectNameByProptiesCode(String name,String proptiesCode);
+
+    int addExtPropties(SysExtPropties sysExtPropties);
+
+    int uploadExtPropties(SysExtPropties sysExtPropties);
+
+    int deleteExtPropties(int id);
 }

@@ -10,4 +10,8 @@
         where ep.propties_code = #{proptiesCode} and p.propties_company_code = #{company}
     </select>
 
+    <select id="selectNameByProptiesCode" parameterType="java.lang.String" resultType="java.util.Map">
+        select ep.*, p.*
+        from
+    </select>
 </mapper>

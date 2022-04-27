@@ -1,5 +1,6 @@
 package com.pp.managesystem.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.pp.managesystem.dao.SysExtProptiesMapper;
 import com.pp.managesystem.entity.SysExtPropties;
@@ -27,5 +28,27 @@ public class SysExtProptiesServiceImpl extends ServiceImpl<SysExtProptiesMapper,
     @Override
     public List<Map> getByCompanyAndType(String company, String proptiesType) {
         return sysExtProptiesMapper.getByCompanyAndType(proptiesType, company);
+    }
+
+    @Override
+    public SysExtPropties selectNameByProptiesCode(String name, String proptiesCode) {
+        QueryWrapper<SysExtPropties> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("name",name).eq("propties_code",proptiesCode);
+        return sysExtProptiesMapper.selectOne(queryWrapper);
+    }
+
+    @Override
+    public int addExtPropties(SysExtPropties sysExtPropties) {
+        return sysExtProptiesMapper.insert(sysExtPropties);
+    }
+
+    @Override
+    public int uploadExtPropties(SysExtPropties sysExtPropties) {
+        return sysExtProptiesMapper.updateById(sysExtPropties);
+    }
+
+    @Override
+    public int deleteExtPropties(int id) {
+        return sysExtProptiesMapper.deleteById(id);
     }
 }
