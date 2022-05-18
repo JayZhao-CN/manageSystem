@@ -1,106 +1,91 @@
 package com.pp.managesystem.entity;
 
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
+import java.io.Serializable;
+import java.util.Date;
+
+/**
+ * <p>
+ * 
+ * </p>
+ *
+ * @author Jay
+ * @since 2022-05-16
+ */
+@Data
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
 public class SysProduct implements Serializable {
+
+    private static final long serialVersionUID=1L;
+
+    /**
+     * ID
+     */
+    @TableId(value = "pr_id", type = IdType.AUTO)
     private Integer prId;
 
+    /**
+     * 公司编号+产品唯一标识+批次+数量
+     */
     private String prCode;
 
+    /**
+     * 产品所属公司
+     */
     private String prCompany;
 
+    /**
+     * 产品类型编号
+     */
+    private String prTypeCode;
+    /**
+     * 产品类型名称
+     */
+    @TableField(exist = false)
+    private String prTypeCodeName;
+
+    /**
+     * 产品批次
+     */
     private String prBatch;
 
-    private String prProcess;
+    /**
+     * 每个单位的数量
+     */
+    private Integer prPerCount;
 
-    private String prProductor;
+    /**
+     * 共计多少单位
+     */
+    private Integer prUnitCount;
 
+    /**
+     * 产品数量
+     */
     private Integer prCount;
 
+    /**
+     * 备注
+     */
     private String prRemark;
 
-    private static final long serialVersionUID = 1L;
+    /**
+     * 添加日期
+     */
+    private Date prTime;
 
-    public Integer getPrId() {
-        return prId;
-    }
+    /**
+     * 添加日期格式化
+     */
+    @TableField(exist = false)
+    private String  prTimeFormat;
 
-    public void setPrId(Integer prId) {
-        this.prId = prId;
-    }
 
-    public String getPrCode() {
-        return prCode;
-    }
-
-    public void setPrCode(String prCode) {
-        this.prCode = prCode == null ? null : prCode.trim();
-    }
-
-    public String getPrCompany() {
-        return prCompany;
-    }
-
-    public void setPrCompany(String prCompany) {
-        this.prCompany = prCompany == null ? null : prCompany.trim();
-    }
-
-    public String getPrBatch() {
-        return prBatch;
-    }
-
-    public void setPrBatch(String prBatch) {
-        this.prBatch = prBatch == null ? null : prBatch.trim();
-    }
-
-    public String getPrProcess() {
-        return prProcess;
-    }
-
-    public void setPrProcess(String prProcess) {
-        this.prProcess = prProcess == null ? null : prProcess.trim();
-    }
-
-    public String getPrProductor() {
-        return prProductor;
-    }
-
-    public void setPrProductor(String prProductor) {
-        this.prProductor = prProductor == null ? null : prProductor.trim();
-    }
-
-    public Integer getPrCount() {
-        return prCount;
-    }
-
-    public void setPrCount(Integer prCount) {
-        this.prCount = prCount;
-    }
-
-    public String getPrRemark() {
-        return prRemark;
-    }
-
-    public void setPrRemark(String prRemark) {
-        this.prRemark = prRemark == null ? null : prRemark.trim();
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", prId=").append(prId);
-        sb.append(", prCode=").append(prCode);
-        sb.append(", prCompany=").append(prCompany);
-        sb.append(", prBatch=").append(prBatch);
-        sb.append(", prProcess=").append(prProcess);
-        sb.append(", prProductor=").append(prProductor);
-        sb.append(", prCount=").append(prCount);
-        sb.append(", prRemark=").append(prRemark);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
-    }
 }

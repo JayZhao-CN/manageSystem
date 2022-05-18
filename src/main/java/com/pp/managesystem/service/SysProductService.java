@@ -1,41 +1,40 @@
 package com.pp.managesystem.service;
 
-import com.pp.managesystem.dao.SysProductMapper;
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.pp.managesystem.entity.SysProduct;
-import com.pp.managesystem.entity.SysProductExample;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service
-@Transactional
-public class SysProductService {
+/**
+ * <p>
+ *  服务类
+ * </p>
+ *
+ * @author Jay
+ * @since 2022-05-16
+ */
+public interface SysProductService extends IService<SysProduct> {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass());
-    @Autowired
-    SysProductMapper sysProductMapper;
+    /**
+     * 根据公司编号获取产品信息
+     * @param company
+     * @return
+     */
+    List<SysProduct> getByCompany(String company,int pageNum,int pageSize);
 
-    public List<SysProduct> getAllProducts(){
-        return sysProductMapper.selectByExample(new SysProductExample());
-    }
+    /**
+     * 根据种类编号、批次、公司查询产品唯一性
+     * @param typeCode
+     * @param batch
+     * @param company
+     * @return
+     */
+    List<SysProduct> selectByTypeAndBatchAndCompany(String typeCode,String batch,String company);
 
-    public SysProduct getProduct(int id) {
-        return sysProductMapper.selectByPrimaryKey(id);
-    }
-
-    public Integer addProduct(SysProduct sysProduct) {
-        return sysProductMapper.insert(sysProduct);
-    }
-
-    public Integer updateProduct(SysProduct sysProduct) {
-        return sysProductMapper.updateByPrimaryKeySelective(sysProduct);
-    }
-
-    public int deleteProduct(int id) {
-        return sysProductMapper.deleteByPrimaryKey(id);
-    }
+    /**
+     * 添加产品
+     * @param sysProduct
+     * @return
+     */
+    int addProduct(SysProduct sysProduct);
 }

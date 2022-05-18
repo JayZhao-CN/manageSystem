@@ -1,97 +1,72 @@
 package com.pp.managesystem.controller;
 
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.pp.managesystem.entity.SysMsg;
 import com.pp.managesystem.entity.SysProduct;
 import com.pp.managesystem.service.SysProductService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+/**
+ * <p>
+ *  前端控制器
+ * </p>
+ *
+ * @author Jay
+ * @since 2022-05-16
+ */
 @RestController
-@RequestMapping("sys_product")
+@RequestMapping("/sys_product")
+@Slf4j
 public class SysProductController {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     SysProductService sysProductService;
 
     /**
-     * 获取所有产品
+     * 获取所有批次产品
      * @return SysMsg
      */
     @GetMapping("/detail")
-    public SysMsg getAllProducts(){
+    public SysMsg getAllProducts(@RequestParam(value = "pageNum")Integer pageNum,
+                               @RequestParam(value = "pageSize")Integer pageSize,
+                               @RequestParam("company")String company){
         try {
-            logger.info("尝试获取所有产品");
-            return SysMsg.success().add("products",sysProductService.getAllProducts());
+            log.info("{}尝试获取所有批次信息",company);
+            PageHelper.startPage(pageNum,pageSize);
+            List<SysProduct> sysProducts = sysProductService.getByCompany(company, pageNum, pageSize);
+            PageInfo<SysProduct> pageInfo = new PageInfo<>(sysProducts);
+            return SysMsg.success().add("dataInfo",pageInfo);
         }catch (Exception e){
-            logger.error(e.toString());
+            log.error(e.toString());
             return SysMsg.failed();
         }
     }
 
     /**
-     * 获取指定产品
-     * @param id
+     * 添加批次
      * @return SysMsg
      */
-    @GetMapping("/{pid}")
-    public SysMsg getProduct(@PathVariable("pid")int id){
+    @PostMapping("/add")
+    public SysMsg addBatch(SysProduct sysProduct) {
         try {
-            logger.info("尝试获取产品："+id);
-            return SysMsg.success().add("product",sysProductService.getProduct(id));
-        }catch (Exception e){
-            logger.error(e.toString());
-            return SysMsg.failed();
-        }
-    }
+            // 校验产品批次是否存在
+            List<SysProduct> sysProducts = sysProductService.selectByTypeAndBatchAndCompany(sysProduct.getPrTypeCode(), sysProduct.getPrBatch(), sysProduct.getPrCompany());
+            if (sysProducts.size() > 0) {
+                return SysMsg.failed().add("msg","该产品类型的 "+sysProducts.get(0).getPrBatch()+"批（刀） 已存在！编号为：" + sysProducts.get(0).getPrCode());
+            }
 
-    /**
-     * 添加产品
-     * @param sysProduct
-     * @return SysMsg
-     */
-    @PostMapping
-    public SysMsg addProduct(@RequestBody SysProduct sysProduct) {
-        try {
-            logger.info("尝试添加尺寸："+sysProduct);
+            log.info("尝试添加批次："+sysProduct);
             return SysMsg.success().add("state",sysProductService.addProduct(sysProduct));
         }catch (Exception e){
-            logger.error(e.toString());
-            return SysMsg.failed();
-        }
-    }
-
-    /**
-     * 修改产品
-     * @param sysProduct
-     * @return SysMsg
-     */
-    @PutMapping
-    public SysMsg updateProduct(@RequestBody SysProduct sysProduct) {
-        try {
-            logger.info("尝试修改产品："+sysProduct);
-            return SysMsg.success().add("state",sysProductService.updateProduct(sysProduct));
-        }catch (Exception e){
-            logger.error(e.toString());
-            return SysMsg.failed();
-        }
-    }
-
-    /**
-     * 删除产品
-     * @param id
-     * @return SysMsg
-     */
-    @DeleteMapping("/{pid}")
-    public SysMsg deleteProduct(@PathVariable("pid") int id) {
-        try {
-            logger.info("尝试删除产品："+id);
-            return SysMsg.success().add("state",sysProductService.deleteProduct(id));
-        }catch (Exception e){
-            logger.error(e.toString());
+            log.error(e.toString());
             return SysMsg.failed();
         }
     }
 }
+

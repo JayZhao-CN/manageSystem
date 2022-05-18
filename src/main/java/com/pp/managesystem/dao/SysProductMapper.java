@@ -1,35 +1,16 @@
 package com.pp.managesystem.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.pp.managesystem.entity.SysProduct;
-import com.pp.managesystem.entity.SysProductExample;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
-import java.util.List;
+/**
+ * <p>
+ *  Mapper 接口
+ * </p>
+ *
+ * @author Jay
+ * @since 2022-05-16
+ */
+public interface SysProductMapper extends BaseMapper<SysProduct> {
 
-@Mapper
-@Repository
-public interface SysProductMapper {
-    long countByExample(SysProductExample example);
-
-    int deleteByExample(SysProductExample example);
-
-    int deleteByPrimaryKey(Integer prId);
-
-    int insert(SysProduct record);
-
-    int insertSelective(SysProduct record);
-
-    List<SysProduct> selectByExample(SysProductExample example);
-
-    SysProduct selectByPrimaryKey(Integer prId);
-
-    int updateByExampleSelective(@Param("record") SysProduct record, @Param("example") SysProductExample example);
-
-    int updateByExample(@Param("record") SysProduct record, @Param("example") SysProductExample example);
-
-    int updateByPrimaryKeySelective(SysProduct record);
-
-    int updateByPrimaryKey(SysProduct record);
 }

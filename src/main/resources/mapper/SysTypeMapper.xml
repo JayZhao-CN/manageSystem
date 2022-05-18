@@ -98,6 +98,14 @@
   </select>
 
   <!--查询种类操作-->
+  <select id="selectByCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_type
+    where t_code = #{code}
+  </select>
+
+  <!--查询种类操作-->
   <select id="selectByNameAndCompany" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

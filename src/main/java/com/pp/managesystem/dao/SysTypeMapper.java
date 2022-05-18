@@ -29,6 +29,8 @@ public interface SysTypeMapper {
 
     List<SysType> selectByCompany(String company);
 
+    SysType selectByCode(String code);
+
     SysType selectByNameAndCompany(String name, String company);
 
     int updateByExampleSelective(@Param("record") SysType record, @Param("example") SysTypeExample example);
