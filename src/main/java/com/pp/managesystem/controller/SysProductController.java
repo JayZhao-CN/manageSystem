@@ -5,12 +5,14 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.pp.managesystem.entity.SysMsg;
 import com.pp.managesystem.entity.SysProduct;
+import com.pp.managesystem.entity.SysProductBreak;
 import com.pp.managesystem.service.SysProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -58,11 +60,34 @@ public class SysProductController {
             // 校验产品批次是否存在
             List<SysProduct> sysProducts = sysProductService.selectByTypeAndBatchAndCompany(sysProduct.getPrTypeCode(), sysProduct.getPrBatch(), sysProduct.getPrCompany());
             if (sysProducts.size() > 0) {
-                return SysMsg.failed().add("msg","该产品类型的 "+sysProducts.get(0).getPrBatch()+"批（刀） 已存在！编号为：" + sysProducts.get(0).getPrCode());
+                Map map = sysProductService.selectMaxByTypeAndCompany(sysProduct.getPrTypeCode(), sysProduct.getPrCompany());
+                int maxBatch = (int) map.get("maxBatch");
+                return SysMsg.failed().add("msg","该产品类型的 "+sysProducts.get(0).getPrBatch()+"批（刀） 已存在！当前最新批次为：" + maxBatch);
             }
 
             log.info("尝试添加批次："+sysProduct);
             return SysMsg.success().add("state",sysProductService.addProduct(sysProduct));
+        }catch (Exception e){
+            log.error(e.toString());
+            return SysMsg.failed();
+        }
+    }
+
+
+    /**
+     * 获取批次所有份数
+     * @return SysMsg
+     */
+    @GetMapping("/break/detail")
+    public SysMsg getAllBreakProducts(@RequestParam(value = "pageNum")Integer pageNum,
+                                 @RequestParam(value = "pageSize")Integer pageSize,
+                                 @RequestParam("prCode")String prCode){
+        try {
+            log.info("{}尝试获取批次所有份数",prCode);
+            PageHelper.startPage(pageNum,pageSize);
+            List<SysProductBreak> breakProducts = sysProductService.getBreakProductsByPrCode(prCode);
+            PageInfo<SysProductBreak> pageInfo = new PageInfo<>(breakProducts);
+            return SysMsg.success().add("dataInfo",pageInfo);
         }catch (Exception e){
             log.error(e.toString());
             return SysMsg.failed();

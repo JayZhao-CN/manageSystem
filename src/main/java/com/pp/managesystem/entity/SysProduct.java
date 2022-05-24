@@ -54,7 +54,7 @@ public class SysProduct implements Serializable {
     /**
      * 产品批次
      */
-    private String prBatch;
+    private Integer prBatch;
 
     /**
      * 每个单位的数量
@@ -70,6 +70,12 @@ public class SysProduct implements Serializable {
      * 产品数量
      */
     private Integer prCount;
+
+    /**
+     * 产品数量
+     */
+    @TableField(exist = false)
+    private Integer breakCount;
 
     /**
      * 备注

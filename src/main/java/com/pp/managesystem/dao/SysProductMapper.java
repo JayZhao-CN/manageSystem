@@ -3,6 +3,8 @@ package com.pp.managesystem.dao;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.pp.managesystem.entity.SysProduct;
 
+import java.util.Map;
+
 /**
  * <p>
  *  Mapper 接口
@@ -13,4 +15,5 @@ import com.pp.managesystem.entity.SysProduct;
  */
 public interface SysProductMapper extends BaseMapper<SysProduct> {
 
+    Map selectMaxByTypeAndBatchAndCompany(String typeCode, String company);
 }

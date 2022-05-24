@@ -2,8 +2,10 @@ package com.pp.managesystem.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.pp.managesystem.entity.SysProduct;
+import com.pp.managesystem.entity.SysProductBreak;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -29,7 +31,15 @@ public interface SysProductService extends IService<SysProduct> {
      * @param company
      * @return
      */
-    List<SysProduct> selectByTypeAndBatchAndCompany(String typeCode,String batch,String company);
+    List<SysProduct> selectByTypeAndBatchAndCompany(String typeCode,int batch,String company);
+
+    /**
+     * 根据上字段查询当前最大批次
+     * @param typeCode
+     * @param company
+     * @return
+     */
+    Map selectMaxByTypeAndCompany(String typeCode,String company);
 
     /**
      * 添加产品
@@ -37,4 +47,11 @@ public interface SysProductService extends IService<SysProduct> {
      * @return
      */
     int addProduct(SysProduct sysProduct);
+
+    /**
+     * 查询产品编号下批次份数信息
+     * @param prCode
+     * @return
+     */
+    List<SysProductBreak> getBreakProductsByPrCode(String prCode);
 }

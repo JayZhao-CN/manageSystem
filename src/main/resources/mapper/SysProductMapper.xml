@@ -2,4 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pp.managesystem.dao.SysProductMapper">
 
+    <select id="selectMaxByTypeAndBatchAndCompany" parameterType="java.lang.String" resultType="java.util.Map">
+        select max(pr_batch) maxBatch from sys_product
+        where pr_type_code = #{typeCode} and pr_company=#{company}
+    </select>
+
 </mapper>
